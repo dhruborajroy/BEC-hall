@@ -204,6 +204,9 @@
                         <li class="nav-item">
                             <a href="mealCheck.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal Check</span></a>
                         </li>
+                        <li class="nav-item">
+                            <a href="mealStatus.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal Status</span></a>
+                        </li>
                     </ul>
                 </div>
             </div>
