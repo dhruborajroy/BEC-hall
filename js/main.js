@@ -393,7 +393,6 @@
 	/*-------------------------------------
 		  Doughnut Chart 
 	  -------------------------------------*/
-function studentChart(mData,fData){
 	if ($("#student-doughnut-chart").length) {
 	var fData, mData;
 	  var doughnutChartData = {
@@ -426,7 +425,6 @@ function studentChart(mData,fData){
 		options: doughnutChartOptions
 	  });
 	}
-}
 
 	/*-------------------------------------
 		  Calender initiate 
@@ -466,3 +464,12 @@ function studentChart(mData,fData){
   });
 
 })(jQuery);
+
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});

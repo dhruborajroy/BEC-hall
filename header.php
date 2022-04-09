@@ -189,11 +189,11 @@
                             <a href="index.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
                         </li>
                         <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-calendar"></i><span>Applications</span></a>
+                            <a href="#" class="nav-link"><i class="flaticon-calendar"></i><span>Users</span></a>
                             <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
                                 <li class="nav-item">
-                                    <a href="applications.php" class="nav-link <?php // echo  $application_sub_group_active?>"><i class="fas fa-angle-right"></i>All
-                                        Applications</a>
+                                    <a href="users.php" class="nav-link <?php // echo  $application_sub_group_active?>"><i class="fas fa-angle-right"></i>All
+                                    Users</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="manageStudentProfile.php" class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
@@ -202,10 +202,19 @@
                             </ul>
                         </li>
                         <li class="nav-item">
+                            <a href="managePayment.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Manage Payment</span></a>
+                        </li>
+                        <li class="nav-item">
                             <a href="mealCheck.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal Check</span></a>
                         </li>
                         <li class="nav-item">
                             <a href="mealStatus.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal Status</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="contigency.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Contegency</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="electricityBill.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Electricity Bill</span></a>
                         </li>
                     </ul>
                 </div>

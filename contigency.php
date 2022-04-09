@@ -40,9 +40,9 @@
                     <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
                         <input type="text" placeholder="Search by Class ..." class="form-control">
                     </div> -->
-                    <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
+                    <!-- <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
                         <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>
-                    </div> 
+                    </div>  -->
                 </div>
             </form>
             <div class="table-responsive">
