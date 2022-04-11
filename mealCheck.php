@@ -32,7 +32,8 @@
             <form class="mg-b-20">
                 <div class="row gutters-8">
                     <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                        <input type="text" onkeyup="myFunction()" placeholder="Search by Roll ..." class="form-control" id="myInput">
+                        <input type="text" onkeyup="myFunction()" placeholder="Search by Roll ..." class="form-control"
+                            id="myInput">
                     </div>
                     <!-- <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
                         <input type="text" placeholder="Search by Name ..." class="form-control">
@@ -42,7 +43,7 @@
                     </div> -->
                     <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
                         <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>
-                    </div> 
+                    </div>
                 </div>
             </form>
             <div class="table-responsive">
@@ -62,6 +63,7 @@
                         </tr>
                     </thead>
                     <tbody id="myTable">
+                        <?php for ($i=0; $i < 10; $i++) { ?>
                         <tr>
                             <td>200130</td>
                             <td>Dhrubo Raj Roy</td>
@@ -74,29 +76,74 @@
                                 </div>
                             </td>
                         </tr>
+                        <?php }?>
+                        <tr>
+                            <td>200101</td>
+                            <td>Nazmul</td>
+                            <td>04 batch</td>
+                            <td>CE</td>
+                            <td>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input">
+                                    <label class="form-check-label">On</label>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
+                <div class="row">
+                    <div class="col-xl-5 col-lg-5 col-5 form-group"></div>
+                    <div class="col-xl-2 col-lg-2 col-12 form-group">
+                        <button type="button" class="modal-trigger" data-toggle="modal" data-target="#standard-modal">
+                            Save
+                        </button>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="standard-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Are You sure?</h5>
+                                    <!-- <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button> -->
+                                </div>
+                                <div class="modal-body">
+                                    Do you want to pay Dhrubo Raj roy & amount 2500$ for the month January?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="footer-btn bg-dark-low"
+                                        data-dismiss="modal">Cancel</button>
+                                    <a href="invoice.php"><button type="button" class="footer-btn bg-linkedin">Save
+                                            & Print</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-5 col-lg-5 col-5 form-group"></div>
+                </div>
             </div>
         </div>
     </div>
     <!-- Student Table Area End Here -->
     <?php include("footer.php")?>
-    
-<script>
-function myFunction() {
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myUL");
-    li = ul.getElementsByTagName("li");
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
-        txtValue = a.textContent || a.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
+
+    <script>
+    function myFunction() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
         }
     }
-}
-</script>
+    </script>

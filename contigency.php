@@ -62,6 +62,7 @@
                         </tr>
                     </thead>
                     <tbody id="myTable">
+                        <?php for ($i=0; $i < 10; $i++) { ?>
                         <tr>
                             <td>200130</td>
                             <td>Dhrubo Raj Roy</td>
@@ -74,6 +75,7 @@
                                 </div>
                             </td>
                         </tr>
+                        <?php }?>
                     </tbody>
                 </table>
             </div>

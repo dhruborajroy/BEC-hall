@@ -304,11 +304,11 @@
 	if ($("#expense-bar-chart").length) {
 
 	  var barChartData = {
-		labels: ["Jan", "Feb", "Mar"],
+		labels: [1,2,3,4,5,6],
 		datasets: [{
 		  backgroundColor: ["#40dfcd", "#417dfc", "#ffaa01"],
-		  data: [125000, 100000, 75000, 50000, 150000],
-		  label: "Expenses (millions)"
+		  data: [12000, 10000, 7500, 5000, 15000],
+		  label: "Expenses (Daily)"
 		}, ]
 	  };
 	  var barChartOptions = {
@@ -340,7 +340,7 @@
 			  autoSkip: false,
 			  fontColor: "#646464",
 			  fontSize: 14,
-			  stepSize: 25000,
+			  stepSize: 2500,
 			  padding: 20,
 			  beginAtZero: true,
 			  callback: function (value) {

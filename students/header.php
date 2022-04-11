@@ -19,30 +19,30 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
     <!-- Normalize CSS -->
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="../css/normalize.css">
     <!-- Main CSS -->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../css/main.css">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <!-- Fontawesome CSS -->
-    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="../css/all.min.css">
     <!-- Flaticon CSS -->
-    <link rel="stylesheet" href="fonts/flaticon.css">
+    <link rel="stylesheet" href="../fonts/flaticon.css">
     <!-- Full Calender CSS -->
-    <link rel="stylesheet" href="css/fullcalendar.min.css">
+    <link rel="stylesheet" href="../css/fullcalendar.min.css">
     <!-- Animate CSS -->
-    <link rel="stylesheet" href="css/animate.min.css">
+    <link rel="stylesheet" href="../css/animate.min.css">
     <!-- Select 2 CSS -->
-    <link rel="stylesheet" href="css/select2.min.css">
+    <link rel="stylesheet" href="../css/select2.min.css">
     <!-- Data Table CSS -->
-    <link rel="stylesheet" href="css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
     <!-- Date Picker CSS -->
-    <link rel="stylesheet" href="css/datepicker.min.css">
+    <link rel="stylesheet" href="../css/datepicker.min.css">
     <!-- Toastr CSS -->
-    <link rel="stylesheet" href="css/toastr.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/toastr.min.css">
+    <link rel="stylesheet" href="../css/style.css">
     <!-- Modernize js -->
-    <script src="js/modernizr-3.6.0.min.js"></script>
+    <script src="../js/modernizr-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -187,34 +187,6 @@
                     <ul class="nav nav-sidebar-menu sidebar-toggle-view">
                         <li class="nav-item">
                             <a href="index.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
-                        </li>
-                        <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Users</span></a>
-                            <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
-                                <li class="nav-item">
-                                    <a href="users.php" class="nav-link <?php // echo  $application_sub_group_active?>"><i class="fas fa-angle-right"></i>All
-                                    Users</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="manageStudentProfile.php" class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
-                                            class="fas fa-angle-right"></i>Add new Application</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="managePayment.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Manage Payment</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="mealCheck.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal Check</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="mealStatus.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal Status</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="contigency.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Contegency</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="electricityBill.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Electricity Bill</span></a>
                         </li>
                     </ul>
                 </div>

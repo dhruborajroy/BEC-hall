@@ -24,7 +24,7 @@
                     <div class="col-6">
                         <div class="item-content">
                             <div class="item-title">Students</div>
-                            <div class="item-number"><span class="counter" data-num="150000">1,50,000</span></div>
+                            <div class="item-number"><span class="counter" data-num="300">300</span></div>
                         </div>
                     </div>
                 </div>
@@ -40,8 +40,8 @@
                     </div>
                     <div class="col-6">
                         <div class="item-content">
-                            <div class="item-title">Teachers</div>
-                            <div class="item-number"><span class="counter" data-num="2250">2,250</span></div>
+                            <div class="item-title">Stuff</div>
+                            <div class="item-number"><span class="counter" data-num="15">15</span></div>
                         </div>
                     </div>
                 </div>
@@ -57,8 +57,8 @@
                     </div>
                     <div class="col-6">
                         <div class="item-content">
-                            <div class="item-title">Parents</div>
-                            <div class="item-number"><span class="counter" data-num="5690">5,690</span></div>
+                            <div class="item-title">Expense</div>
+                            <div class="item-number"><span class="counter" data-num="30000">30000</span></div>
                         </div>
                     </div>
                 </div>
