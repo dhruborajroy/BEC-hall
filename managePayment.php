@@ -44,8 +44,6 @@
                         <hr>
                         <div class="col-xl-12 col-lg-12 col-12 ">
                             <center>
-                                <!-- <button type="button"
-                                class="btn-fill-xl radius-30 text-light s bg-orange-red">Close</button> -->
                                 <p class="header_payment">Monthly Payment</p>
                             </center>
                         </div>
@@ -61,16 +59,17 @@
                             </div>
                             <div class="col-xl-4 col-lg-4 col-12 form-group">
                                 <label>Due amount</label>
-                                <input type="email" placeholder="0" class="form-control" disabled>
+                                <input type="number" value="0" id="number_0" class="form-control" disabled>
                             </div>
-                                <input type="hidden" id="box_count" value="1">
-                                <input style="margin-top: 20px;margin-bottom: 15px;" type="button" name="submit" id="submit" value="Add More" class="btn-fill-lg font-normal text-light gradient-pastel-green" onclick="add_more()">
+                            <input type="hidden" id="box_count" value="1">
+                            <input type="" id="total_amount" value="0">
+                            <input style="margin-top: 20px;margin-bottom: 15px;" type="button" name="submit" id="submit"
+                                value="Add More" class="btn-fill-lg font-normal text-light gradient-pastel-green"
+                                onclick="add_more()">
                         </div>
                         <hr>
                         <div class="col-xl-12 col-lg-12 col-12 ">
                             <center>
-                                <!-- <button type="button"
-                                class="btn-fill-xl radius-30 text-light s bg-orange-red">Close</button> -->
                                 <p class="header_payment">Fees</p>
                             </center>
                         </div>
@@ -87,10 +86,12 @@
                             </div>
                             <div class="col-xl-4 col-lg-4 col-12 form-group">
                                 <label>Due amount</label>
-                                <input type="email" placeholder="0" class="form-control" disabled>
+                                <input type="email" value="0" class="form-control" disabled>
                             </div>
-                                <input type="hidden" id="box_count" value="1">
-                                <input style="margin-top: 20px;margin-bottom: 15px;" type="button" name="submit" id="submit" value="Add More" class="btn-fill-lg font-normal text-light gradient-pastel-green" onclick="add_more_fees()">
+                            <input type="hidden" id="box_count" value="1">
+                            <input style="margin-top: 20px;margin-bottom: 15px;" type="button" name="submit" id="submit"
+                                value="Add More" class="btn-fill-lg font-normal text-light gradient-pastel-green"
+                                onclick="add_more_fees()">
                         </div>
                         <div class="modal-box">
                             <!-- Button trigger modal -->
@@ -139,22 +140,26 @@
     <?php include("footer.php")?>
     <script>
     function add_more() {
+        total();
         var box_count = jQuery("#box_count").val();
         box_count++;
         // alert(box_count);
         jQuery("#box_count").val(box_count);
         jQuery("#wrap").append('<div class="col-xl-12 col-lg-12 col-12 form-group row" id="box_loop_' + box_count +
-            '"><div class="col-xl-6 col-lg-6 col-12 form-group"><label>Month *</label><select class="form-control"><option value="">Please Select Month *</option><option value="1">January</option><option value="2">February</option><option value="3">March</option></select></div><div class="col-xl-4 col-lg-4 col-12 form-group"><label>Due amount</label><input type="email" placeholder="2500" class="form-control" disabled></div><div class="col-xl-2 col-lg-2 col-2 form-group"><input style="margin-top: 20px;" type="button" name="submit" id="submit" value="Remove" class="btn-fill-lmd text-light radius-4 bg-gradient-gplus" onclick=remove_more("' +
+            '"><div class="col-xl-6 col-lg-6 col-12 form-group"><label>Month *</label><select class="form-control"><option value="">Please Select Month *</option><option value="1">January</option><option value="2">February</option><option value="3">March</option></select></div><div class="col-xl-4 col-lg-4 col-12 form-group"><label>Due amount</label><input type="email" id="number_' +
+            box_count +
+            '" value="250" class="form-control" disabled></div><div class="col-xl-2 col-lg-2 col-2 form-group"><input style="margin-top: 20px;" type="button" name="submit" id="submit" value="Remove" class="btn-fill-lmd text-light radius-4 bg-gradient-gplus"  onclick=remove_more("' +
             box_count + '")></div></div>'
         );
     }
+
     function add_more_fees() {
         var fees_count = jQuery("#fees_count").val();
         fees_count++;
-        // alert(fees_count);
         jQuery("#fees_count").val(fees_count);
-        jQuery("#wrap_fees").append('<div class="col-xl-12 col-lg-12 col-12 form-group row" id="fees_loop_' + fees_count +
-            '"><div class="col-xl-6 col-lg-6 col-12 form-group"><label>Month *</label><select class="form-control"><option value="">Please Select Month *</option><option value="1">January</option><option value="2">February</option><option value="3">March</option></select></div><div class="col-xl-4 col-lg-4 col-12 form-group"><label>Due amount</label><input type="email" placeholder="2500" class="form-control" disabled></div><div class="col-xl-2 col-lg-2 col-2 form-group"><input style="margin-top: 20px;" type="button" name="submit" id="submit" value="Remove" class="btn-fill-lmd text-light radius-4 bg-gradient-gplus" onclick=remove_more_fees("' +
+        jQuery("#wrap_fees").append('<div class="col-xl-12 col-lg-12 col-12 form-group row" id="fees_loop_' +
+            fees_count +
+            '"><div class="col-xl-6 col-lg-6 col-12 form-group"><label>Month *</label><select class="form-control"><option value="">Please Select Month *</option><option value="1">January</option><option value="2">February</option><option value="3">March</option></select></div><div class="col-xl-4 col-lg-4 col-12 form-group"><label>Due amount</label><input type="email" value="2500" class="form-control" disabled></div><div class="col-xl-2 col-lg-2 col-2 form-group"><input style="margin-top: 20px;" type="button" name="submit" id="submit" value="Remove" class="btn-fill-lmd text-light radius-4 bg-gradient-gplus" onclick=remove_more_fees("' +
             fees_count + '")></div></div>'
         );
     }
@@ -165,11 +170,20 @@
         box_count--;
         jQuery("#box_count").val(box_count);
     }
-    
+
     function remove_more_fees(fees_count) {
         jQuery("#fees_loop_" + fees_count).remove();
         var fees_count = jQuery("#fees_count").val();
         fees_count--;
         jQuery("#fees_count").val(fees_count);
+    }
+
+    function total() {
+        var total=0;
+        var box_count=jQuery("#box_count").val(); //1
+        var number=jQuery("#number_"+box_count).val(); //1,2,3
+        sum=parseInt(total)+parseInt(number);
+        jQuery("#total_amount").val(sum);
+
     }
     </script>
