@@ -41,6 +41,7 @@
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="css/toastr.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/custom.css">
     <!-- Modernize js -->
     <script src="js/modernizr-3.6.0.min.js"></script>
 </head>
@@ -211,10 +212,26 @@
                             <a href="mealStatus.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal Status</span></a>
                         </li>
                         <li class="nav-item">
+                            <a href="mealOnOffRequests.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal On Off Requests</span></a>
+                        </li>
+                        <li class="nav-item">
                             <a href="contigency.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Contegency</span></a>
                         </li>
                         <li class="nav-item">
                             <a href="electricityBill.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Electricity Bill</span></a>
+                        </li>
+                        <li class="nav-item sidebar-nav-item">
+                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Fees</span></a>
+                            <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
+                                <li class="nav-item">
+                                    <a href="fees.php" class="nav-link <?php // echo  $application_sub_group_active?>"><i class="fas fa-angle-right"></i>All
+                                    Fees</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="manageFees.php" class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
+                                            class="fas fa-angle-right"></i>Add new Fees</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>

@@ -55,7 +55,7 @@
             <div class="nav-bar-header-one">
                 <div class="header-logo">
                     <a href="index.php">
-                        <img src="img/logo.png" alt="logo">
+                        <img src="../img/logo.png" alt="logo">
                     </a>
                 </div>
                 <div class="toggle-button sidebar-toggle">
@@ -99,7 +99,7 @@
                                 <span>Admin</span>
                             </div>
                             <div class="admin-img">
-                                <img src="img/figure/admin.jpg" alt="Admin">
+                                <img src="../img/figure/admin.jpg" alt="Admin">
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -180,13 +180,16 @@
             <div class="sidebar-main sidebar-menu-one sidebar-expand-md sidebar-color">
                 <div class="mobile-sidebar-header d-md-none">
                     <div class="header-logo">
-                        <a href="index.php"><img src="img/logo1.png" alt="logo"></a>
+                        <a href="index.php"><img src="../img/logo1.png" alt="logo"></a>
                     </div>
                 </div>
                 <div class="sidebar-menu-content">
                     <ul class="nav nav-sidebar-menu sidebar-toggle-view">
                         <li class="nav-item">
                             <a href="index.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="mealOnOffReq.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal On Off Request</span></a>
                         </li>
                     </ul>
                 </div>

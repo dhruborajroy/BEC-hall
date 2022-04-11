@@ -82,6 +82,7 @@
             display: block;
             text-align: center;
         }
+
     }
 
     /** RTL **/
@@ -100,7 +101,7 @@
     </style>
 </head>
 
-<body onload="print()">
+<body >
     <div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
             <tr class="top">
@@ -108,15 +109,14 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <img src="https://www.sparksuite.com/images/logo.png"
-                                    style="width: 100%; max-width: 300px" />
+                                <img src="./img/invoiceLogo.png" style="width: 100%; height:150px" />
+                                <!-- max-width: 300px -->
                             </td>
-
-                            <td>
+                            <!-- <td>
                                 Invoice #: 123<br />
-                                Created: January 1, 2015<br />
-                                Due: February 1, 2015
-                            </td>
+                                Created: January 1, 2022<br />
+                                Due: February 1, 2022
+                            </td> -->
                         </tr>
                     </table>
                 </td>
@@ -127,48 +127,42 @@
                     <table>
                         <tr>
                             <td>
-                                Sparksuite, Inc.<br />
-                                12345 Sunny Road<br />
-                                Sunnyville, CA 12345
-                            </td>
+                                <b>Name : </b> Dhrubo Raj Roy<br>
+                                <b>ID : </b> 20200130<br>
+                                <b>Dept : </b> Civil Engineering<br>
+                                <b>Barch : </b> 4<sup>th</sup> Bath
 
+                            </td>
                             <td>
-                                Acme Corp.<br />
-                                John Doe<br />
-                                john@example.com
+                                <img src="./img/qr.png" alt="QR Code" height="150px" width="150px">
+                                <br>
+                                <!-- https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=https://localhost/bec-hall/invoice.php -->
+                                <p style="margin-top: -25px;">Scan Qr Code to verify Payment</p>
                             </td>
                         </tr>
                     </table>
                 </td>
             </tr>
             <tr class="heading">
-                <td>Payment Method</td>
-                <td>Check #</td>
-            </tr>
-            <tr class="details">
-                <td>Check</td>
-                <td>1000</td>
-            </tr>
-            <tr class="heading">
                 <td>Item</td>
                 <td>Price</td>
             </tr>
             <tr class="item">
-                <td>Website design</td>
-                <td>$300.00</td>
+                <td>January</td>
+                <td>$3000</td>
             </tr>
             <tr class="item">
-                <td>Hosting (3 months)</td>
-                <td>$75.00</td>
+                <td>February</td>
+                <td>$3000</td>
             </tr>
-            <tr class="item last">
-                <td>Domain name (1 year)</td>
-                <td>$10.00</td>
+            <tr class="item">
+                <td>March</td>
+                <td>$3000</td>
             </tr>
             <tr class="total">
                 <td></td>
 
-                <td>Total: $385.00</td>
+                <td><b>Total:</b> $9000</td>
             </tr>
         </table>
     </div>
@@ -176,7 +170,7 @@
 
 </html>
 <script>
-    function print(){
-        window.print();
-    }
+window.addEventListener('load',function() {
+    // window.print();
+} )
 </script>

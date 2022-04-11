@@ -304,10 +304,10 @@
 	if ($("#expense-bar-chart").length) {
 
 	  var barChartData = {
-		labels: [1,2,3,4,5,6],
+		labels: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
 		datasets: [{
-		  backgroundColor: ["#40dfcd", "#417dfc", "#ffaa01"],
-		  data: [12000, 10000, 7500, 5000, 15000],
+		  backgroundColor: ["#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01",],
+		  data: [200,201,204,209,216,225,236,249,264,281,300,321,344,369,396,425,456,489,524,561,600,641,684,729,776,825,876,929,984,1041,2000],
 		  label: "Expenses (Daily)"
 		}, ]
 	  };
