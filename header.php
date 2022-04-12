@@ -214,12 +214,12 @@
                         <li class="nav-item">
                             <a href="mealOnOffRequests.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal On Off Requests</span></a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="contigency.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Contegency</span></a>
                         </li>
                         <li class="nav-item">
                             <a href="electricityBill.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Electricity Bill</span></a>
-                        </li>
+                        </li> -->
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Fees</span></a>
                             <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">

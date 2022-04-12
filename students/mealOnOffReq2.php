@@ -23,16 +23,15 @@
             </div>
             <div class="ui-alart-box">
                 <div class="icon-color-alart">
-                    <div class="alert icon-alart bg-dark-pastel-green" role="alert">
-                        <i class="fas fa-exclamation bg-dark-pastel-green"></i>
-                        Your Meal is ON. Please Pay your due amount(If Any). 
+                    <div class="alert icon-alart bg-pink2" role="alert">
+                        <i class="fas fa-times bg-pink3"></i>
+                        Your Meal is off. Please Pay your due amount(If Any). 
                     </div>
                 </div>
             </div>
             <div class="ui-btn-wrap">
                 <ul>
-                    <li><button type="button" class="btn-fill-md text-light bg-dark-pastel-green">Meal On/Request Meal Off</button></li>
-                    <!-- <li><button type="button" class="btn-fill-md radius-4 text-light bg-orange-red">Meal Off/Request Meal On</button></li> -->
+                    <li><button type="button" class="btn-fill-md radius-4 text-light bg-orange-red">Meal On/Request Meal On</button></li>
                 </ul>
             </div>
         </div>

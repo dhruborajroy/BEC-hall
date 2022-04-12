@@ -62,7 +62,7 @@
                                 <input type="number" value="0" id="number_0" class="form-control" disabled>
                             </div>
                             <input type="hidden" id="box_count" value="1">
-                            <input type="" id="total_amount" value="0">
+                            <input type="hidden" id="total_amount" value="0">
                             <input style="margin-top: 20px;margin-bottom: 15px;" type="button" name="submit" id="submit"
                                 value="Add More" class="btn-fill-lg font-normal text-light gradient-pastel-green"
                                 onclick="add_more()">
@@ -77,11 +77,11 @@
                             <div class="col-xl-4 col-lg-4 col-12 form-group" id="my_box_fees">
                                 <input type="hidden" id="fees_count" value="1">
                                 <label>Month *</label>
-                                <select class="form-control" id="select_box">
+                                <select class="form-control form-control-lg" id="select_box">
                                     <option value="">Please Select Month *</option>
-                                    <option value="1">January</option>
-                                    <option value="2">February</option>
-                                    <option value="3">March</option>
+                                    <option value="1">Admission Fee</option>
+                                    <option value="2">Contigency</option>
+                                    <option value="3">Seat Range</option>
                                 </select>
                             </div>
                             <div class="col-xl-4 col-lg-4 col-12 form-group">

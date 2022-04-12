@@ -16,7 +16,7 @@
         <div class="card-body">
             <div class="heading-layout1">
                 <div class="item-title">
-                    <h3>All Students Data</h3>
+                    <h3>Meal Data</h3>
                 </div>
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
@@ -34,6 +34,10 @@
                     <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
                         <input type="text" onkeyup="myFunction()" placeholder="Search by Roll ..." class="form-control"
                             id="myInput">
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-12 form-group">
+                        <input type="text" placeholder="dd/mm/yy" class="form-control air-datepicker"
+                            data-position="bottom right">
                     </div>
                     <!-- <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
                         <input type="text" placeholder="Search by Name ..." class="form-control">
@@ -115,7 +119,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="footer-btn bg-dark-low"
                                         data-dismiss="modal">Cancel</button>
-                                    <a href="invoice.php"><button type="button" class="footer-btn bg-linkedin">Save
+                                    <a href="mealCheck.php"><button type="button" class="footer-btn bg-linkedin">Save
                                             & Print</button></a>
                                 </div>
                             </div>

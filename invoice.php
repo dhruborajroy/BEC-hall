@@ -171,6 +171,6 @@
 </html>
 <script>
 window.addEventListener('load',function() {
-    // window.print();
+    window.print();
 } )
 </script>

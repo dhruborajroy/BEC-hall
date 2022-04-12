@@ -101,7 +101,7 @@
                 <div class="card-body">
                     <div class="heading-layout1">
                         <div class="item-title">
-                            <h3>Attendence Sheet Of Class One: Section A, April 2019</h3>
+                            <h3>Meal Chart- April 2022</h3>
                         </div>
                         <!-- <div class="dropdown">
                             <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
@@ -155,8 +155,9 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php for ($i=0; $i < 5; $i++) { ?>
                                 <tr>
-                                    <td class="text-left">Michele Johnson</td>
+                                    <td class="text-left">Dhrubo Raj Roy</td>
                                     <td><i class="fas fa-check text-success"></i></td>
                                     <td><i class="fas fa-check text-success"></i></td>
                                     <td><i class="fas fa-check text-success"></i></td>
@@ -189,6 +190,7 @@
                                     <td><i class="fas fa-check text-success"></i></td>
                                     <td>-</td>
                                 </tr>
+                                <?php }?>
                             </tbody>
                         </table>
                     </div>

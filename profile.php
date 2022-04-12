@@ -2,13 +2,13 @@
 <div class="dashboard-content-one">
     <!-- Breadcubs Area Start Here -->
     <div class="breadcrumbs-area">
-        <h3>Students</h3>
-        <ul>
+        <h3>Profile</h3>
+        <!-- <ul>
             <li>
                 <a href="index.php">Home</a>
             </li>
             <li>All Students</li>
-        </ul>
+        </ul> -->
     </div>
     <!-- Breadcubs Area End Here -->
                 <!-- Student Details Area Start Here -->
@@ -35,7 +35,7 @@
                             </div>
                             <div class="item-content">
                                 <div class="header-inline item-header">
-                                    <h3 class="text-dark-medium font-medium">Steven Jones</h3>
+                                    <h3 class="text-dark-medium font-medium">Dhruboraj roy</h3>
                                     <div class="header-elements">
                                         <ul>
                                             <li><a href="#"><i class="far fa-edit"></i></a></li>
@@ -52,15 +52,15 @@
                                         <tbody>
                                             <tr>
                                                 <td>Name:</td>
-                                                <td class="font-medium text-dark-medium">Steven Jones</td>
+                                                <td class="font-medium text-dark-medium">Dhruboraj roy</td>
                                             </tr>
                                             <tr>
                                                 <td>Gender:</td>
                                                 <td class="font-medium text-dark-medium">Male</td>
                                             </tr>
                                             <tr>
-                                                <td>Occupation:</td>
-                                                <td class="font-medium text-dark-medium">Business</td>
+                                                <td>Dept.:</td>
+                                                <td class="font-medium text-dark-medium">Civil Engineering</td>
                                             </tr>
                                             <tr>
                                                 <td>ID:</td>
@@ -72,15 +72,15 @@
                                             </tr>
                                             <tr>
                                                 <td>Religion:</td>
-                                                <td class="font-medium text-dark-medium">Islam</td>
+                                                <td class="font-medium text-dark-medium">Hindu</td>
                                             </tr>
                                             <tr>
                                                 <td>Phone:</td>
-                                                <td class="font-medium text-dark-medium">+ 88 98568888418</td>
+                                                <td class="font-medium text-dark-medium">+ 8801705927257</td>
                                             </tr>
                                             <tr>
                                                 <td>E-mail:</td>
-                                                <td class="font-medium text-dark-medium">jessiarose@gmail.com</td>
+                                                <td class="font-medium text-dark-medium">DhruborajRoy3@gmail.com</td>
                                             </tr>
                                         </tbody>
                                     </table>
