@@ -1,9 +1,9 @@
 <?php 
-//    session_start();
-//    session_regenerate_id();
-//    require('../inc/constant.inc.php');
-//    require('../inc/connection.inc.php');
-//    require('../inc/function.inc.php');
+   session_start();
+   session_regenerate_id();
+   require('./inc/constant.inc.php');
+   require('./inc/connection.inc.php');
+   require('./inc/function.inc.php');
 //    isAdmin();
 ?>
 <!doctype html>
@@ -110,7 +110,7 @@
                             <div class="item-content">
                                 <ul class="settings-list">
                                     <li><a href="profile.php"><i class="flaticon-user"></i>My Profile</a></li>
-                                    <li><a href="login.php"><i class="flaticon-turn-off"></i>Log Out</a></li>
+                                    <li><a href="logout.php"><i class="flaticon-turn-off"></i>Log Out</a></li>
                                 </ul>
                             </div>
                         </div>

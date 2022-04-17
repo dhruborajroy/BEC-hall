@@ -1,11 +1,42 @@
+<?php 
+include('./inc/function.inc.php');
+include('./inc/connection.inc.php');
+include('./inc/constant.inc.php');
+$msg="";
+if(isset($_SESSION['ADMIN_LOGIN'])){
+    redirect('index.php');
+}
+if(isset($_POST['submit'])){
+	$email=get_safe_value($_POST['email']);
+   	$password=get_safe_value($_POST['password']);
+   	$sql="select * from admin where email='$email' and binary password='$password'";
+	$res=mysqli_query($con,$sql);
+	if(mysqli_num_rows($res)>0){
+		$row=mysqli_fetch_assoc($res);
+		if($row['status']!=1){
+			$msg="You haven't verified your email yet. Please verify the email";
+		}else{
+			$msg="You are aleady registered. Please login";
+			$_SESSION['ADMIN_LOGIN']=true;
+			$_SESSION['ADMIN_ID']=$row['id'];
+			$_SESSION['ADMIN_NAME']=$row['name'] ;
+			redirect('./index.php');
+            die();
+		}		
+	}else{
+		$msg="Please Enter correct Login details";
+	}
+}
+?>
 <!doctype html>
 <html class="no-js" lang="">
 
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>AKKHOR | Login</title>
+    <title>BEC Hall Management System | Login</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
@@ -39,29 +70,32 @@
                 <div class="item-logo">
                     <img src="img/logo2.png" alt="logo">
                 </div>
-                <form action="index.php" class="login-form">
+                <form class="login-form" method="POST">
+                    <div class="form-group">
+                        <?php echo $msg?>
+                    </div>
                     <div class="form-group">
                         <label>Username</label>
-                        <input type="text" placeholder="Enter usrename" class="form-control">
+                        <input type="text" placeholder="Enter usrename" class="form-control" name="email">
                         <i class="far fa-envelope"></i>
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="text" placeholder="Enter password" class="form-control">
+                        <input type="text" placeholder="Enter password" class="form-control" name="password">
                         <i class="fas fa-lock"></i>
                     </div>
                     <div class="form-group d-flex align-items-center justify-content-between">
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="remember-me">
+                            <input type="checkbox" class="form-check-input" id="remember-me" >
                             <label for="remember-me" class="form-check-label">Remember Me</label>
                         </div>
                         <a href="#" class="forgot-btn">Forgot Password?</a>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="login-btn">Login</button>
+                        <button type="submit" name="submit" class="login-btn">Login</button>
                     </div>
                 </form>
-            <div class="">Don't have an account ? <a href="#">Signup now!</a></div>
+                <div class="">Don't have an account ? <a href="#">Signup now!</a></div>
             </div>
         </div>
     </div>
@@ -80,4 +114,5 @@
     <script src="js/main.js"></script>
 
 </body>
+
 </html>
