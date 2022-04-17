@@ -1,11 +1,10 @@
 <?php
 define('SITE_NAME','Admission');
-define('FRONT_SITE_PATH','http://127.0.0.1/admission/');
+define('FRONT_SITE_PATH','http://127.0.0.1/bec-hall/');
 define('STORE_ID',"dhrub5f103f94cd3e4");
 define('STORE_PASSWORD',"dhrub5f103f94cd3e4@ssl");
-define('STUDENT_IMAGE',FRONT_SITE_PATH."/media/applicants/");
-define('UPLOAD_STUDENT_IMAGE',$_SERVER['DOCUMENT_ROOT']."/admission/media/applicants/");
-define('SITE_DISH_IMAGE',FRONT_SITE_PATH."media/");
+define('STUDENT_IMAGE',FRONT_SITE_PATH."/media/users/");
+define('UPLOAD_STUDENT_IMAGE',$_SERVER['DOCUMENT_ROOT']."/bec-hall/media/users/");
 
 $manage_class='';
 $manage_class_menu_active='';

@@ -1,4 +1,5 @@
-<?php include('header.php');
+<?php 
+include('header.php');
 $id="";
 $name='';
 $fname='';
@@ -14,49 +15,45 @@ $dob='';
 $gender='';
 $religion='';
 $birthId='';
-$height='';
-$ffQuata='';
 $bloodGroup='';
-$autism='';
-$previousSchoolName='';
-$lastExamName='';
 $examRoll='';
 $legalGuardianName='';
 $legalGuardianRelation='';
 $image='';
 $email='';
-$lastResult='';
-$classId="";
+$merit='';
+$deptId="";
 if(isset($_GET['id']) && $_GET['id']>0){
 	$id=get_safe_value($_GET['id']);
-	$row=mysqli_fetch_assoc(mysqli_query($con,"select * from applicants where id='$id'"));
-	$name=$row['name'];
-	$fname=$row['fName'];
-	$fOccupation=$row['fOccupation'];
-	$mname=$row['mName'];
-	$mOccupation=$row['mOccupation'];
-	$phoneNumber=$row['phoneNumber'];
-	$presentAddress=$row['presentAddress'];
-	$permanentAddress=$row['permanentAddress'];
-	$dob=$row['dob'];
-	$gender=$row['gender'];
-	$religion=$row['religion'];
-	$birthId=$row['birthId'];
-	$height=$row['height'];
-	$ffQuata=$row['ffQuata'];
-	$bloodGroup=$row['bloodGroup'];
-	$autism=$row['autism'];
-	$previousSchoolName=$row['previousSchoolName'];
-	$lastExamName=$row['lastExamName'];
-	$lastResult=$row['lastResult'];
-	$examRoll=$row['examRoll'];
-	$legalGuardianName=$row['legalGuardianName'];
-	$legalGuardianRelation=$row['legalGuardianRelation'];
-	$image=$row['image'];
-	$email=$row['email'];
-	$classId=$row['classId'];
-	$paymentStatus=$row['paymentStatus'];
-    $required='';
+    $res=mysqli_query($con,"select * from users where id='$id'");
+	if(mysqli_num_rows($res)>0){
+        $row=mysqli_fetch_assoc($res);
+        $name=$row['name'];
+        $fname=$row['fName'];
+        $fOccupation=$row['fOccupation'];
+        $mname=$row['mName'];
+        $mOccupation=$row['mOccupation'];
+        $phoneNumber=$row['phoneNumber'];
+        $presentAddress=$row['presentAddress'];
+        $permanentAddress=$row['permanentAddress'];
+        $dob=$row['dob'];
+        $gender=$row['gender'];
+        $religion=$row['religion'];
+        $birthId=$row['birthId'];
+        $height=$row['height'];
+        $ffQuata=$row['ffQuata'];
+        $bloodGroup=$row['bloodGroup'];
+        $merit=$row['merit'];
+        $legalGuardianName=$row['legalGuardianName'];
+        $legalGuardianRelation=$row['legalGuardianRelation'];
+        $image=$row['image'];
+        $email=$row['email'];
+        $dept=$row['dept'];
+        $examRoll=$row['examRoll'];
+        $required='';
+    }else{
+        redirect('index.php');
+    }
 }
 if(isset($_POST['submit'])){
 	$name=get_safe_value($_POST['name']);
@@ -71,23 +68,18 @@ if(isset($_POST['submit'])){
 	$gender=get_safe_value($_POST['gender']);
 	$religion=get_safe_value($_POST['religion']);
 	$birthId=get_safe_value($_POST['birthId']);
-	$height=get_safe_value($_POST['height']);
-	$ffQuata=get_safe_value($_POST['ffQuata']);
 	$bloodGroup=get_safe_value($_POST['bloodGroup']);
-	$autism=get_safe_value($_POST['autism']);
-	$previousSchoolName=get_safe_value($_POST['previousSchoolName']);
-	$lastExamName=get_safe_value($_POST['lastExamName']);
 	$examRoll=get_safe_value($_POST['examRoll']);
-	$lastResult=get_safe_value($_POST['lastResult']);
+	$merit=get_safe_value($_POST['merit']);
 	$legalGuardianName=get_safe_value($_POST['legalGuardianName']);
 	$legalGuardianRelation=get_safe_value($_POST['legalGuardianRelation']);
-	$paymentStatus=get_safe_value($_POST['paymentStatus']);
 	$email=get_safe_value($_POST['email']);
+    $ffQuata=get_safe_value($_POST['ffQuata']);
    if($id==''){
         $image=rand(111111111,999999999).'_'.$_FILES['image']['name'];
         move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
-        $sql="INSERT INTO `applicants` (`name`, `fName`, `fOccupation`, `mName`, `mOccupation`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`, `height`, `ffQuata`, `bloodGroup`, `autism`, `previousSchoolName`, `lastExamName`, `examRoll`, `lastResult`, `legalGuardianName`, `legalGuardianRelation`, `image`, `paymentStatus`,`email`, `status`)
-                                VALUES ( '$name', '$fName', '$fOccupation', '$mName', '$mOccupation', '$phoneNumber','$presentAddress','$permanentAddress','$dob','$gender','$religion','$birthId','$height','$ffQuata','$bloodGroup','','$previousSchoolName','$lastExamName','$examRoll','$lastResult', '$legalGuardianName','$legalGuardianRelation','$image','$paymentStatus', '$email', 1)";
+        echo $sql="INSERT INTO `users` (`name`, `fName`, `fOccupation`, `mName`, `mOccupation`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`,`ffQuata`, `bloodGroup`,  `examRoll`, `merit`, `legalGuardianName`, `legalGuardianRelation`, `image`,`email`, `status`)
+                                VALUES ( '$name', '$fName', '$fOccupation', '$mName', '$mOccupation', '$phoneNumber','$presentAddress','$permanentAddress','$dob','$gender','$religion','$birthId','$ffQuata','$bloodGroup','$examRoll','$merit', '$legalGuardianName','$legalGuardianRelation','$image','$email', 1)";
         
         mysqli_query($con,$sql);
         $_SESSION['INSERT']=1;
@@ -95,15 +87,15 @@ if(isset($_POST['submit'])){
         if($_FILES['image']['name']!=''){
             $image=rand(111111111,999999999).'_'.$_FILES['image']['name'];
             move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
-            $sql="update `applicants` set  `name`='$name', `fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`birthId`='$birthId',`height`='$height',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`autism`='$autism',`previousSchoolName`='$previousSchoolName',`lastExamName`='$lastExamName',`examRoll`='$examRoll',`lastResult`='$lastResult',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email', `paymentStatus`='$paymentStatus' where id='$id'";
+            $sql="update `users` set  `name`='$name', `fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email'  where id='$id'";
             mysqli_query($con,$sql);
         }else{
-            $sql="update `applicants` set  `name`='$name', `fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`birthId`='$birthId',`height`='$height',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`autism`='$autism',`previousSchoolName`='$previousSchoolName',`lastExamName`='$lastExamName',`examRoll`='$examRoll',`lastResult`='$lastResult',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email', `paymentStatus`='$paymentStatus' where id='$id'";
+            $sql="update `users` set  `name`='$name', `fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email' where id='$id'";
             mysqli_query($con,$sql);
         }
         $_SESSION['UPDATE']=1;
     }
-    redirect('./applications.php');
+    redirect('./users.php');
 }
 ?>
 <div class="dashboard-content-one">
@@ -112,7 +104,7 @@ if(isset($_POST['submit'])){
         <h3>Students</h3>
         <ul>
             <li>
-                <a href="index-2.html">Home</a>
+                <a href="index.php">Home</a>
             </li>
             <li>Student Admit Form</li>
         </ul>
@@ -192,8 +184,6 @@ if(isset($_POST['submit'])){
                         $data=[
                                 'name'=>[
                                     'Male',
-                                    'Female',
-                                    'Other',
                                 ]
                             ];
                             $count=count($data['name']);
@@ -261,16 +251,16 @@ if(isset($_POST['submit'])){
                         </select>
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <label>Class *</label>
-                        <select class="form-control select2" name="classId">
-                            <option>Select Class</option>
+                        <label>Dept *</label>
+                        <select class="form-control select2" name="dept">
+                            <option>Select Depertment</option>
                             <?php
-                            $res=mysqli_query($con,"SELECT * FROM `class` where status='1'");
+                            $res=mysqli_query($con,"SELECT * FROM `depts` where status='1'");
                             while($row=mysqli_fetch_assoc($res)){
-                                if($row['id']==$classId){
-                                    echo "<option selected='selected' value=".$row['id'].">".$row['className']."</option>";
+                                if($row['dept']==$dept){
+                                    echo "<option selected='selected' value=".$row['id'].">".$row['name']."</option>";
                                 }else{
-                                    echo "<option value=".$row['id'].">".$row['className']."</option>";
+                                    echo "<option value=".$row['id'].">".$row['name']."</option>";
                                 }                                                        
                             }
                             ?>
@@ -299,75 +289,37 @@ if(isset($_POST['submit'])){
                         ?>
                         </select>
                     </div>
-
-                    <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <label>Autism *</label>
-                        <select class="select2" name="autism" required>
-                            <option>Please Select autism status *</option>
-                            <?php
-                        $data=[
-                            'name'=>[
-                                'Yes',
-                                'No',
-                            ]
-                        ];
-                        $count=count($data['name']);
-                        for($i=0;$i<$count;$i++){
-                            if($data['name'][$i]==$autism){
-                                echo "<option selected='selected' value=".$data['name'][$i].">".$data['name'][$i]."</option>";
-                            }else{
-                                echo "<option value=".$data['name'][$i].">".$data['name'][$i]."</option>";
-                            }                                                        
-                        }
-                        ?>
-                        </select>
-                    </div>
-                    <div class="col-xl-3 col-lg-6 col-12 form-group">
+                    <!-- <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Manual Payment Status *</label>
                         <select class="select2" name="paymentStatus" required>
                             <option>Please Select Manual Payment Status *</option>
                             <?php
-                            $data=[
-                                'name'=>[
-                                    'VALID',
-                                    'FAILED',
-                                ]
-                            ];
-                            $count=count($data['name']);
-                            for($i=0;$i<$count;$i++){
-                                if($data['name'][$i]==$paymentStatus){
-                                    echo "<option selected='selected' value=".$data['name'][$i].">".$data['name'][$i]."</option>";
-                                }else{
-                                    echo "<option value=".$data['name'][$i].">".$data['name'][$i]."</option>";
-                                }                                                        
-                            }
+                            // $data=[
+                            //     'name'=>[
+                            //         'VALID',
+                            //         'FAILED',
+                            //     ]
+                            // ];
+                            // $count=count($data['name']);
+                            // for($i=0;$i<$count;$i++){
+                            //     if($data['name'][$i]==$paymentStatus){
+                            //         echo "<option selected='selected' value=".$data['name'][$i].">".$data['name'][$i]."</option>";
+                            //     }else{
+                            //         echo "<option value=".$data['name'][$i].">".$data['name'][$i]."</option>";
+                            //     }                                                        
+                            // }
                             ?>
                         </select>
-                    </div>
+                    </div> -->
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <label>Height</label>
-                        <input class="form-control" placeholder="Height" autocomplete="off" name="height" type="text"
-                            value="<?php echo $height?>" >
-                    </div>
-                    <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <label>Previous School Name</label>
-                        <input class="form-control" placeholder="Previous School Name" autocomplete="off"
-                            name="previousSchoolName" type="text" required value="<?php echo $previousSchoolName?>">
-                    </div>
-                    <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <label>Last Exam Name</label>
-                        <input class="form-control" placeholder="Last Exam Name" autocomplete="off" name="lastExamName"
-                            type="text" required value="<?php echo $lastExamName?>">
-                    </div>
-                    <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <label>Last Exam Roll</label>
-                        <input class="form-control" placeholder="Last Exam Roll" autocomplete="off" name="examRoll"
+                        <label>Exam Roll</label>
+                        <input class="form-control" placeholder="Last Exam roll" autocomplete="off" name="examRoll"
                             type="text" required value="<?php echo $examRoll?>">
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <label>Last Exam Result</label>
-                        <input class="form-control" placeholder="Last Exam Result" autocomplete="off" name="lastResult"
-                            type="text" required value="<?php echo $lastResult?>">
+                        <label>Merit</label>
+                        <input class="form-control" placeholder="Last Exam Result" autocomplete="off" name="merit"
+                            type="text" required value="<?php echo $merit?>">
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Legal Guardian Name</label>
@@ -386,7 +338,7 @@ if(isset($_POST['submit'])){
                                 <div class="form-input">
                                     <div class="preview">
                                         <img id="file_ip_1-preview" <?php if($image!=''){
-                                                    echo 'src="../media/applicants/'.$image.'"';}
+                                                    echo 'src="'.STUDENT_IMAGE.$image.'"';}
                                                     ?> style="width:200px;height: 200px">
                                     </div>
                                     <label for="file_ip_1">Upload Image</label>
