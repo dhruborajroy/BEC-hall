@@ -1,4 +1,5 @@
 <?php
+require_once("./inc/smtp/class.phpmailer.php");
 function pr($arr){
 	echo '<pre>';
 	print_r($arr);
@@ -50,7 +51,20 @@ function send_email($email,$html,$subject){
 		//echo "Error occur";
 	}
 }
-
+function sendLoginEmail($email){
+	$html="";	
+	$ch=curl_init();
+	curl_setopt($ch,CURLOPT_URL,"http://ip-api.com/json");
+	curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+	$result=curl_exec($ch);
+	$result=json_decode($result,1);
+	// echo "<pre>";
+	// print_r($result);
+	if($result['status']=='success'){
+		$html='New Login information. '.date("F j, Y \a\t h:i:s A").' <br>Country: '.$result["country"].'<br>'.'<b>Ip Address: '.$result["query"].'</b><br> Zip: '.$result["zip"].'<br> City: '.$result["city"].'<br> Isp: '.$result["isp"].'<br> Region Name: '.$result["regionName"];
+	}
+	send_email($email,$html,"Login Information ".date('F j, Y \at h:i:s A'));
+}
 function rand_str(){
 	$str=str_shuffle("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz");
 	return $str=substr($str,0,15);

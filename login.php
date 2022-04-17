@@ -21,7 +21,8 @@ if(isset($_POST['submit'])){
 			$msg="You are aleady registered. Please login";
 			$_SESSION['ADMIN_LOGIN']=true;
 			$_SESSION['ADMIN_ID']=$row['id'];
-			$_SESSION['ADMIN_NAME']=$row['name'] ;
+			$_SESSION['ADMIN_NAME']=$row['name'];
+            // sendLoginEmail($row['email']);
 			redirect('./index.php');
             die();
 		}		

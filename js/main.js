@@ -473,3 +473,42 @@ $(document).ready(function(){
     });
   });
 });
+
+
+
+// Extra fee
+
+$(document).ready(function() {
+    function autoCalcSetup() {
+        $('form[name=fee]').jAutoCalc('destroy');
+        $('form[name=fee] tr[name=fee_line_items]').jAutoCalc({
+            keyEventsFire: true,
+            decimalPlaces: 2,
+            emptyAsZero: true
+        });
+        $('form[name=fee]').jAutoCalc({
+            decimalPlaces: 2
+        });
+    }
+    autoCalcSetup();
+    $('button[name=fee_remove]').click(function(e) {
+        e.preventDefault();
+        var form = $(this).parents('form')
+        $(this).parents('tr').remove();
+        autoCalcSetup();
+    });
+
+    $('button[name=fee_add]').click(function(e) {
+        e.preventDefault();
+        var $table = $(this).parents('table');
+        var $top = $table.find('tr[name=fee_line_items]').first();
+        var $new = $top.clone(true);
+        $new.jAutoCalc('destroy');
+        $new.insertBefore($top);
+        $new.find('input[type=text]').val('');
+        autoCalcSetup();
+    });
+});
+
+// finding total
+	
