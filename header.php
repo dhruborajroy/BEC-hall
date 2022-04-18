@@ -234,15 +234,15 @@
                             </ul>
                         </li>
                         <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Depertments</span></a>
+                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Departments</span></a>
                             <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
                                 <li class="nav-item">
                                     <a href="depts.php" class="nav-link <?php // echo  $application_sub_group_active?>"><i class="fas fa-angle-right"></i>All
-                                    Depertments</a>
+                                    Departments</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="manageDepts.php" class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
-                                            class="fas fa-angle-right"></i>Add new Fees</a>
+                                            class="fas fa-angle-right"></i>Add new Department</a>
                                 </li>
                             </ul>
                         </li>

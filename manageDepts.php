@@ -4,9 +4,14 @@ $short_form='';
 $name='';
 if(isset($_GET['id']) && $_GET['id']>0){
 	$id=get_safe_value($_GET['id']);
-	$row=mysqli_fetch_assoc(mysqli_query($con,"select * from depts where id='$id'"));
-	$short_form=$row['short_form'];
-	$name=$row['name'];
+    $res=mysqli_query($con,"select * from depts where id='$id'");
+    if(mysqli_num_rows($res)>0){
+        $row=mysqli_fetch_assoc($res);
+        $short_form=$row['short_form'];
+        $name=$row['name'];
+    }else{
+        redirect("index.php");
+    }
 }
 if(isset($_POST['submit'])){  
     // pr($_POST);
@@ -41,12 +46,12 @@ if(isset($_POST['submit'])){
             <form class="new-added-form" method="post">
                 <div class="row">
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <label>Class Name *</label>
-                        <input type="text" placeholder="Enter class name" value="<?php echo $name?>"
+                        <label>Department Name *</label>
+                        <input type="text" placeholder="Enter Department name" value="<?php echo $name?>"
                             name="name" class="form-control">
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <label>Numaric Value</label>
+                        <label>Short Form of Department</label>
                         <input type="text" placeholder="Enter value of Short Form"
                             value="<?php echo $short_form?>" name="short_form" class="form-control">
                     </div>

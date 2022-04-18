@@ -60,27 +60,61 @@
                 <tr>
                     <th></th>
                     <th>Item</th>
+                    <th>Qty</th>
                     <th>Price</th>
+                    <th>&nbsp;</th>
                     <th>Item Total</th>
                 </tr>
                 <tr name="line_items">
                     <td><button name="remove" class="btn btn-danger">Remove</button></td>
+                    <td>Stuff</td>
+                    <td><input type="text" name="qty" value="1"></td>
+                    <td><input type="text" name="price" value="9.99"></td>
+                    <td>&nbsp;</td>
+                    <td><input type="text" name="item_total" value="" jAutoCalc="{qty} * {price}"></td>
+                </tr>
+                <tr name="line_items">
+                    <td><button name="remove" class="btn btn-danger">Remove</button></td>
                     <td>More Stuff</td>
+                    <td><input type="text" name="qty" value="2"></td>
                     <td><input type="text" name="price" value="12.50"></td>
-                    <td><input type="text" name="item_total" value="" jAutoCalc=" {price}"></td>
+                    <td>&nbsp;</td>
+                    <td><input type="text" name="item_total" value="" jAutoCalc="{qty} * {price}"></td>
+                </tr>
+                <tr name="line_items">
+                    <td><button name="remove" class="btn btn-danger">Remove</button></td>
+                    <td>And More Stuff</td>
+                    <td><input type="text" name="qty" value="3"></td>
+                    <td><input type="text" name="price" value="99.99"></td>
+                    <td>&nbsp;</td>
+                    <td><input type="text" name="item_total" value="" jAutoCalc="{qty} * {price}"></td>
                 </tr>
                 <tr>
-                    <td colspan="2">&nbsp;</td>
+                    <td colspan="3">&nbsp;</td>
                     <td>Subtotal</td>
+                    <td>&nbsp;</td>
                     <td><input type="text" name="sub_total" value="" jAutoCalc="SUM({item_total})"></td>
                 </tr>
                 <tr>
-                    <td colspan="2">&nbsp;</td>
+                    <td colspan="3">&nbsp;</td>
+                    <td>
+                        Tax:
+                        <select name="tax">
+                            <option value=".06">CT Tax</option>
+                            <option selected value=".00">Tax Free</option>
+                        </select>
+                    </td>
+                    <td>&nbsp;</td>
+                    <td><input type="text" name="tax_total" value="" jAutoCalc="{sub_total} * {tax}"></td>
+                </tr>
+                <tr>
+                    <td colspan="3">&nbsp;</td>
                     <td>Total</td>
+                    <td>&nbsp;</td>
                     <td><input type="text" name="grand_total" value="" jAutoCalc="{sub_total} + {tax_total}"></td>
                 </tr>
                 <tr>
-                    <td colspan="99"><button name="add" class="btn btn-primary">Add Row</button></td>
+                    <td colspan="99"><button name="add"  class="btn btn-primary">Add Row</button></td>
                 </tr>
             </table>
         </form>
