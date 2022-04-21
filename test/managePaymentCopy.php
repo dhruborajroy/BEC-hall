@@ -54,7 +54,11 @@
                                 </tr>
                                 <tr name="line_items">
                                     <td><button name="remove" class="btn btn-danger">Remove</button></td>
-                                    <td>More Stuff</td>
+                                    <td><select name="month_select" onchange="">
+                                        <option>Select Month</option>
+                                        <option>January</option>
+                                        <option>February</option>
+                                    </select></td>
                                     <td><input type="text" name="price" value="12.50"></td>
                                     <td><input type="text"  disabled  name="item_total" value="" jAutoCalc=" {price}"></td>
                                 </tr>
@@ -81,7 +85,7 @@
                                 </tr>
                                 <tr name="fee_line_items">
                                     <td><button name="fee_remove" class="btn btn-danger">Remove</button></td>
-                                    <td>More Stuff</td>
+                                    <td><input type="text" class="form-control"></td>
                                     <td><input type="text" name="fee_price" value="12.50"></td>
                                     <td><input type="text" disabled  name="fee_item_total" value="" jAutoCalc=" {fee_price}"></td>
                                 </tr>

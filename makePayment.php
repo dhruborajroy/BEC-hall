@@ -57,40 +57,30 @@ $res=mysqli_query($con,$sql);
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Image</th>
                             <th>Name</th>
-                            <th>Father's Name</th>
                             <th>Number</th>
                             <th>Email</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="myTable">
-                    <?php if(mysqli_num_rows($res)>0){
+                        <?php if(mysqli_num_rows($res)>0){
                         $i=1;
                         while($row=mysqli_fetch_assoc($res)){
                         ?>
                         <tr role="row" class="odd">
                             <td class="sorting_1 dtr-control"><?php echo $i?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['image']?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['name']?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['fName']?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['phoneNumber']?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['email']?></td>
                             <td>
-                                <div class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        <span class="flaticon-more-button-of-three-dots"></span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <!-- <a class="dropdown-item" href="#"><i
-                                                class="fas fa-times text-orange-red"></i>Close</a> -->
-                                        <a class="dropdown-item"
-                                            href="manageStudentProfile.php?id=<?php echo md5($row['id'])?>"><i
-                                                class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                        <!-- <a class="dropdown-item" href="#"><i
-                                                class="fas fa-redo-alt text-orange-peel"></i>Refresh</a> -->
-                                    </div>
+
+                                <div class="ui-btn-wrap">
+                                    <ul>
+                                        <li><a href="managePayment.php?id=<?php echo $row['id']?>"><button type="button"
+                                                class="btn-fill-lmd  text-light shadow-dark-pastel-green bg-dark-pastel-green">Make Payment</button></a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </td>
                         </tr>

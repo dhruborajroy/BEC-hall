@@ -203,7 +203,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="managePayment.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Manage Payment</span></a>
+                            <a href="makePayment.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Manage Payment</span></a>
                         </li>
                         <li class="nav-item">
                             <a href="mealCheck.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal Check</span></a>

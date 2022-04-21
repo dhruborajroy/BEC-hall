@@ -190,7 +190,8 @@ $(document).ready(function() {
         var $new = $top.clone(true);
         $new.jAutoCalc('destroy');
         $new.insertBefore($top);
-        $new.find('input[type=text]').val('');
+        $new.find('input[name=amount]').val('');
+        $new.find('input[name=fee_price]').val('');
         autoCalcSetup();
     });
 

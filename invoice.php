@@ -1,107 +1,27 @@
+<?php 
+include("./inc/connection.inc.php");
+include("./inc/function.inc.php");
+if (isset($_GET['id']) && $_GET['id']!="") {
+    $invoice_id=get_safe_value($_GET['id']);
+    // $sql="select * from payments where id ='$invoice_id'";
+    // $res=mysqli_query($con,$sql);
+    // if(mysqli_num_rows($res)>!0){
+    //     redirect("index.php");
+    // }
+}else{
+    redirect("index.php");
+}
+?>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8" />
-    <title>A simple, clean, and responsive HTML invoice template</title>
-
-    <style>
-    .invoice-box {
-        max-width: 800px;
-        margin: auto;
-        padding: 30px;
-        border: 1px solid #eee;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-        font-size: 16px;
-        line-height: 24px;
-        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-        color: #555;
-    }
-
-    .invoice-box table {
-        width: 100%;
-        line-height: inherit;
-        text-align: left;
-    }
-
-    .invoice-box table td {
-        padding: 5px;
-        vertical-align: top;
-    }
-
-    .invoice-box table tr td:nth-child(2) {
-        text-align: right;
-    }
-
-    .invoice-box table tr.top table td {
-        padding-bottom: 20px;
-    }
-
-    .invoice-box table tr.top table td.title {
-        font-size: 45px;
-        line-height: 45px;
-        color: #333;
-    }
-
-    .invoice-box table tr.information table td {
-        padding-bottom: 40px;
-    }
-
-    .invoice-box table tr.heading td {
-        background: #eee;
-        border-bottom: 1px solid #ddd;
-        font-weight: bold;
-    }
-
-    .invoice-box table tr.details td {
-        padding-bottom: 20px;
-    }
-
-    .invoice-box table tr.item td {
-        border-bottom: 1px solid #eee;
-    }
-
-    .invoice-box table tr.item.last td {
-        border-bottom: none;
-    }
-
-    .invoice-box table tr.total td:nth-child(2) {
-        border-top: 2px solid #eee;
-        font-weight: bold;
-    }
-
-    @media only screen and (max-width: 600px) {
-        .invoice-box table tr.top table td {
-            width: 100%;
-            display: block;
-            text-align: center;
-        }
-
-        .invoice-box table tr.information table td {
-            width: 100%;
-            display: block;
-            text-align: center;
-        }
-
-    }
-
-    /** RTL **/
-    .invoice-box.rtl {
-        direction: rtl;
-        font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-    }
-
-    .invoice-box.rtl table {
-        text-align: right;
-    }
-
-    .invoice-box.rtl table tr td:nth-child(2) {
-        text-align: left;
-    }
-    </style>
+    <title>BEC Invoice</title>
+    <link rel="stylesheet" href="./css/invoice.css">
 </head>
 
-<body >
+<body>
     <div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
             <tr class="top">
@@ -147,22 +67,47 @@
                 <td>Item</td>
                 <td>Price</td>
             </tr>
+            <?php
+            echo $sql="select payments.*,monthly_payment_details.*,month.id,month.name from payments,monthly_payment_details,month where month.id=monthly_payment_details.month_id and monthly_payment_details.month_id=payments.id and payments.id='$invoice_id'";
+            $res=mysqli_query($con,$sql);
+            if(mysqli_num_rows($res)>0){
+            while($row=mysqli_fetch_assoc($res)){
+            ?>
             <tr class="item">
-                <td>January</td>
-                <td>$3000</td>
+                <td><?php echo $row['name']." - ".date("y",time())?></td>
+                <td><span class="amount"><?php echo $row['monthly_amount']?></span> Taka</td>
             </tr>
+            <?php 
+            } } else { //redirect("index.php") ?>
+            <tr>
+                <td colspan="5">No data found</td>
+            </tr>
+            <?php } ?>
+            <tr class="heading">
+                <td>Item</td>
+                <td>Price</td>
+            </tr>
+            <?php 
+            $sql="SELECT `fees`.* , fee_details.*,payments.* from payments,fees,fee_details WHERE fees.id=fee_details.fee_id and payments.id=fee_details.payment_id and payments.id='$invoice_id'";
+            $res=mysqli_query($con,$sql);
+            if(mysqli_num_rows($res)>0){
+            $i=1;
+            while($row=mysqli_fetch_assoc($res)){
+            ?>
             <tr class="item">
-                <td>February</td>
-                <td>$3000</td>
+                <td><?php echo $row['name']." - ".date("y",time())?></td>
+                <td><span class="amount"><?php echo $row['fee_amount']?></span> Taka</td>
             </tr>
-            <tr class="item">
-                <td>March</td>
-                <td>$3000</td>
+            <?php 
+            $i++;
+            } } else { ?>
+            <tr>
+                <td colspan="5">No data found</td>
             </tr>
+            <?php } ?>
             <tr class="total">
                 <td></td>
-
-                <td><b>Total:</b> $9000</td>
+                <td ><b>Total:</b> <span id="grant_total"></span> Taka</td>
             </tr>
         </table>
     </div>
@@ -172,7 +117,15 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
-window.addEventListener('load',function() {
-    window.print();
-} )
+window.addEventListener('load', function() {
+    // window.print();
+})
+
+var total = 0;
+var amount = document.getElementsByClassName("amount");
+for (let i = 0; i < amount.length; i++) {
+    var total = total + parseInt(amount[i].innerHTML);
+}
+console.log(total);
+document.getElementById("grant_total").innerHTML = total;
 </script>
