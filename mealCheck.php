@@ -58,12 +58,13 @@
                             <th>Name</th>
                             <th>Batch</th>
                             <th>Dept.</th>
-                            <th>
+                            <!-- <th>
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input checkAll">
                                     <label class="form-check-label">status</label>
                                 </div>
-                            </th>
+                            </th> -->
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="myTable">
@@ -73,12 +74,10 @@
                             <td>Dhrubo Raj Roy</td>
                             <td>04 batch</td>
                             <td>CE</td>
-                            <td>
-                                <div class="form-check">
+                            <!-- <div class="form-check">
                                     <input type="checkbox" class="form-check-input">
-                                    <label class="form-check-label">On</label>
-                                </div>
-                            </td>
+                                </div> -->
+                            <td><input type="number" value=""></td>
                         </tr>
                         <?php }?>
                         <tr>
@@ -86,12 +85,13 @@
                             <td>Nazmul</td>
                             <td>04 batch</td>
                             <td>CE</td>
-                            <td>
+                            <!-- <td>
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input">
                                     <label class="form-check-label">On</label>
                                 </div>
-                            </td>
+                            </td> -->
+                            <td><input type="number"></td>
                         </tr>
                     </tbody>
                 </table>

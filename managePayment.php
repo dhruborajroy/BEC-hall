@@ -10,7 +10,6 @@ if(isset($_GET['id']) && $_GET['id']!=""){
         $name=$row['name'];
         $roll=$row['roll'];
         $batch=$row['batch'];
-        $required='';
     }else{
         redirect('index.php');
     }
@@ -21,9 +20,10 @@ if(isset($_POST['submit']) ){
     $month_id=$_POST['month_id'];
     $month_amount=$_POST['month_amount'];
     $fee_id=$_POST['fees_id'];
+    $total_amount=$_POST['total_amount'];
     $fee_amount=$_POST['fees_amount'];
     $time=time();
-    $sql="INSERT INTO `payments` ( `user_id`, `updated_at`, `created_at`, `status`) VALUES ( '$user_id',  '$time', '$time', '1')";
+    $sql="INSERT INTO `payments` ( `user_id`,`total_amount` `updated_at`, `created_at`, `status`) VALUES ( '$user_id', '$total_amount', '$time', '$time', '1')";
     mysqli_query($con,$sql);
     $payment_id=mysqli_insert_id($con);
     for($i=0;$i<=count($_POST['month_amount'])-1;$i++){
@@ -40,8 +40,8 @@ if(isset($_POST['submit']) ){
             mysqli_query($con,$swl);
         }
     }
+    redirect("./invoice.php?id=".$payment_id);
 }
-
 ?>
 <div class="dashboard-content-one">
     <!-- Breadcubs Area Start Here -->
@@ -166,7 +166,7 @@ if(isset($_POST['submit']) ){
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-4 form-group">
                                     <label>Total amount</label>
-                                    <input id="grant_total" value="0" class="form-control" readonly>
+                                    <input id="grant_total" value="0" class="form-control" readonly name="total_amount">
                                 </div>
                             </div>
                             <div class="modal-box">
@@ -197,9 +197,9 @@ if(isset($_POST['submit']) ){
 <!-- Student Table Area End Here -->
 <?php include("footer.php")?>
 <script>
-jQuery("#submit").hide();
+// jQuery("#submit").hide();
 
-
+// Retriving  Fee Amount
 function getFeesData(id) {
     var fee_id = jQuery("#fee_select_box_" + id).val();
     jQuery.ajax({
@@ -216,25 +216,81 @@ function getFeesData(id) {
     });
 }
 
+// Retriving Monthly Due Amount
+function getMonthlyData(id) {
+    var month_id = jQuery("#select_box_" + id).val();
+    jQuery.ajax({
+        type: "post",
+        url: "./requests/getMonthlyFee.php",
+        data: "month_id=" + month_id,
+        success: function(result) {
+            // alert(result);
+            result = result.trim()
+            jQuery("#number_" + id).val(result);
+            get_total();
+            // jQuery("#submit").show();
+        }
+    });
+}
+// Adding more Monthly data
+function add_more() {
+    var option_value='<?php
+                        $month_id=0;
+                        $res=mysqli_query($con,"SELECT * FROM `month` where status='1'");
+                        while($row=mysqli_fetch_assoc($res)){
+                            if($row['id']==$month_id){
+                                echo "<option selected='selected' value=".$row['id'].">".$row['name']."</option>";
+                            }else{
+                                echo "<option value=".$row['id'].">".$row['name']."</option>";
+                            }                                                        
+                        }
+                    ?>';
+    var box_count = jQuery("#box_count").val();
+    // jQuery("#submit").hide();
+    box_count++;
+    // alert(box_count);
+    jQuery("#box_count").val(box_count);
+    jQuery("#wrap").append('<div class="col-xl-12 col-lg-12 col-12 form-group row" id="box_loop_' + box_count +
+        '"><div class="col-xl-6 col-lg-6 col-12 form-group"><label>Month *</label><select required  name="month_id[]" id="select_box_' +
+        box_count + '" onchange="getMonthlyData(' + box_count +
+        ')" class="form-control disable_class"><option value="" selected readonly>Please Select Month *</option>'+option_value+'</select></div><div class="col-xl-4 col-lg-4 col-12 form-group"><label>Due amount</label><input type="number"  name="month_amount[]" id="number_' +
+        box_count +
+        '" value="0" class="form-control amount" readonly></div><div class="col-xl-2 col-lg-2 col-2 form-group"><input style="margin-top: 20px;" type="button" name="submit" id="submit" value="Remove" class="btn-fill-lmd text-light radius-4 bg-gradient-gplus"  onclick=remove_more("' +
+        box_count + '")></div></div>'
+    );
+    get_total();
+}
+
+
+function remove_more(box_count) {
+    jQuery("#box_loop_" + box_count).remove();
+    var box_count = jQuery("#box_count").val();
+    box_count--;
+    jQuery("#box_count").val(box_count);
+    get_total();
+}
+
+// Fee Datas
+
 
 function add_more_fees() {
     var option_value = '<?php
-                                        $fees_id=0;
-                                        $res=mysqli_query($con,"SELECT * FROM `fees` where status='1'");
-                                        while($row=mysqli_fetch_assoc($res)){
-                                            if($row['id']==$fees_id){
-                                                echo "<option selected='selected' value=".$row['id'].">".$row['name']."</option>";
-                                            }else{
-                                                echo "<option value=".$row['id'].">".$row['name']."</option>";
-                                            }                                                        
-                                        }
-                                    ?>';
+                            $fees_id=0;
+                            $res=mysqli_query($con,"SELECT * FROM `fees` where status='1'");
+                            while($row=mysqli_fetch_assoc($res)){
+                                if($row['id']==$fees_id){
+                                    echo "<option selected='selected' value=".$row['id'].">".$row['name']."</option>";
+                                }else{
+                                    echo "<option value=".$row['id'].">".$row['name']."</option>";
+                                }                                                        
+                            }
+                        ?>';
     var fees_count = jQuery("#fees_count").val();
     fees_count++;
     jQuery("#fees_count").val(fees_count);
     jQuery("#wrap_fees").append('<div class="col-xl-12 col-lg-12 col-12 form-group row" id="fees_loop_' +
         fees_count +
-        '"><div class="col-xl-6 col-lg-6 col-12 form-group"><label>Month *</label><select name="fees_id[]" class="form-control" id="fee_select_box_' +
+        '"><div class="col-xl-6 col-lg-6 col-12 form-group"><label>Month *</label><select required name="fees_id[]" class="form-control" id="fee_select_box_' +
         fees_count + '" onclick="getFeesData(' + fees_count +
         ')"><option value="" selected readonly>Please Select Month *</option>' + option_value +
         '</select></div><div class="col-xl-4 col-lg-4 col-12 form-group"><label>Due amount</label><input name="fees_amount[]" type="number" value="0" id="fee_number_' +
@@ -253,59 +309,8 @@ function remove_more_fees(fees_count) {
     jQuery("#fees_count").val(fees_count);
 }
 
-function getMonthlyData(id) {
-    var month_id = jQuery("#select_box_" + id).val();
-    jQuery.ajax({
-        type: "post",
-        url: "./requests/getMonthlyFee.php",
-        data: "month_id=" + month_id,
-        success: function(result) {
-            // alert(result);
-            result = result.trim()
-            jQuery("#number_" + id).val(result);
-            get_total();
-            jQuery("#submit").show();
-        }
-    });
-}
 
-function add_more() {
-    var box_count = jQuery("#box_count").val();
-    jQuery("#submit").hide();
-    box_count++;
-    // alert(box_count);
-    jQuery("#box_count").val(box_count);
-    jQuery("#wrap").append('<div class="col-xl-12 col-lg-12 col-12 form-group row" id="box_loop_' + box_count +
-        '"><div class="col-xl-6 col-lg-6 col-12 form-group"><label>Month *</label><select  name="month_id[]" id="select_box_' +
-        box_count + '" onchange="getMonthlyData(' + box_count +
-        ')" class="form-control disable_class"><option value="" selected readonly>Please Select Month *</option><?php
-                                        $month_id=0;
-                                        $res=mysqli_query($con,"SELECT * FROM `month` where status='1'");
-                                        while($row=mysqli_fetch_assoc($res)){
-                                            if($row['id']==$month_id){
-                                                echo "<option selected='selected' value=".$row['id'].">".$row['name']."</option>";
-                                            }else{
-                                                echo "<option value=".$row['id'].">".$row['name']."</option>";
-                                            }                                                        
-                                        }
-                                    ?></select></div><div class="col-xl-4 col-lg-4 col-12 form-group"><label>Due amount</label><input type="number"  name="month_amount[]" id="number_' +
-        box_count +
-        '" value="0" class="form-control amount" readonly></div><div class="col-xl-2 col-lg-2 col-2 form-group"><input style="margin-top: 20px;" type="button" name="submit" id="submit" value="Remove" class="btn-fill-lmd text-light radius-4 bg-gradient-gplus"  onclick=remove_more("' +
-        box_count + '")></div></div>'
-    );
-    get_total();
-}
-
-
-function remove_more(box_count) {
-    jQuery("#box_loop_" + box_count).remove();
-    var box_count = jQuery("#box_count").val();
-    box_count--;
-    jQuery("#box_count").val(box_count);
-    get_total();
-}
-
-
+// Finding Total Amount
 function get_total() {
     var total = 0;
     var amount = document.getElementsByClassName("amount");
@@ -321,15 +326,9 @@ function get_total() {
     document.getElementById("grant_total").value = grant_total;
 }
 
+// Reloading The page to start from the begineeing
 function reload() {
     location.reload();
 }
 
-function disable() {
-    var disable_class = document.getElementsByClassName("disable_class");
-    for (let i = 0; i < disable_class.length; i++) {
-        disable_class[i].setAttribute("readonly", "readonly");
-        console.log();
-    }
-}
 </script>

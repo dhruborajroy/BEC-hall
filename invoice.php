@@ -32,29 +32,37 @@ if (isset($_GET['id']) && $_GET['id']!="") {
                                 <img src="./img/invoiceLogo.png" style="width: 100%; height:150px" />
                                 <!-- max-width: 300px -->
                             </td>
-                            <!-- <td>
-                                Invoice #: 123<br />
-                                Created: January 1, 2022<br />
-                                Due: February 1, 2022
-                            </td> -->
+                            <td>
+                                Invoice ID #: <?php echo $invoice_id?><br />
+                                Created: <?php echo date("d M Y h:i A",time());?><br />
+                            </td>
                         </tr>
                     </table>
                 </td>
             </tr>
-
             <tr class="information">
                 <td colspan="2">
                     <table>
                         <tr>
+
+                            <?php
+                                $sql="select users.id,users.name,users.batch,users.dept_id,users.roll,depts.id,depts.name as dept_name, payments.id,payments.user_id from users,depts, payments where users.id=payments.user_id and users.dept_id=depts.id and payments.id='$invoice_id'";
+                                // echo $sql="select users.*,depts.id,depts.name as dept_name,payments.* from users,payments,depts where users.id=payments.user_id and depts.id=users.dept_id and payments.id=$invoice_id";
+                                $res=mysqli_query($con,$sql);
+                                if(mysqli_num_rows($res)>0){
+                                while($row=mysqli_fetch_assoc($res)){
+                                ?>
                             <td>
-                                <b>Name : </b> Dhrubo Raj Roy<br>
-                                <b>ID : </b> 20200130<br>
-                                <b>Dept : </b> Civil Engineering<br>
-                                <b>Barch : </b> 4<sup>th</sup> Bath
+                                <b>Name : </b> <?php echo $row['name']?><br>
+                                <b>ID : </b> <?php echo $row['roll']?><br>
+                                <b>Dept : </b><?php echo $row['dept_name']?><br>
+                                <b>Barch : </b> <?php echo $row['batch']?><sup>th</sup> Bath
 
                             </td>
+                            <?php }}?>
                             <td>
-                                <img src="./img/qr.png" alt="QR Code" height="150px" width="150px">
+                                <img src="https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=https://localhost/bec-hall/invoice.php?id=<?php echo $invoice_id?>"
+                                    alt="QR Code" height="150px" width="150px">
                                 <br>
                                 <!-- https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=https://localhost/bec-hall/invoice.php -->
                                 <p style="margin-top: -25px;">Scan Qr Code to verify Payment</p>
@@ -64,11 +72,11 @@ if (isset($_GET['id']) && $_GET['id']!="") {
                 </td>
             </tr>
             <tr class="heading">
-                <td>Item</td>
+                <td>Monthly Payment</td>
                 <td>Price</td>
             </tr>
             <?php
-            echo $sql="select payments.*,monthly_payment_details.*,month.id,month.name from payments,monthly_payment_details,month where month.id=monthly_payment_details.month_id and monthly_payment_details.month_id=payments.id and payments.id='$invoice_id'";
+            $sql="select payments.*,monthly_payment_details.*,month.id,month.name from payments,monthly_payment_details,month where month.id=monthly_payment_details.month_id and monthly_payment_details.payment_id=payments.id and payments.id='$invoice_id'";
             $res=mysqli_query($con,$sql);
             if(mysqli_num_rows($res)>0){
             while($row=mysqli_fetch_assoc($res)){
@@ -84,7 +92,7 @@ if (isset($_GET['id']) && $_GET['id']!="") {
             </tr>
             <?php } ?>
             <tr class="heading">
-                <td>Item</td>
+                <td>Fee Payment</td>
                 <td>Price</td>
             </tr>
             <?php 
@@ -107,7 +115,7 @@ if (isset($_GET['id']) && $_GET['id']!="") {
             <?php } ?>
             <tr class="total">
                 <td></td>
-                <td ><b>Total:</b> <span id="grant_total"></span> Taka</td>
+                <td><b>Total:</b> <span id="grant_total"></span> Taka</td>
             </tr>
         </table>
     </div>

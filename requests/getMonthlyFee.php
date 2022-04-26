@@ -5,6 +5,10 @@ if(isset($_POST['month_id']) && $_POST['month_id']>0 && $_POST['month_id']!=0){
         echo "6600";
     }else if ($month_id==2) {
         echo "5500";
+    }else if ($month_id==3) {
+        echo "5200";
+    }else if ($month_id==4) {
+        echo "3000";
     }else{
         echo "0";
     }
