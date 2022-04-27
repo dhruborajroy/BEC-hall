@@ -158,7 +158,7 @@ function getTotalPayments(){
 } 
 function gettotalstudent(){
 	global $con;
-	$sql="SELECT count(DISTINCT id) as student FROM students";
+	$sql="SELECT count(DISTINCT id) as student FROM users";
 	$res=mysqli_query($con,$sql);
 	while($row=mysqli_fetch_assoc($res)){
 	  return $row['student'];

@@ -72,7 +72,7 @@ $res=mysqli_query($con,$sql);
                         ?>
                         <tr role="row" class="odd">
                             <td class="sorting_1 dtr-control"><?php echo $i?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['image']?></td>
+                            <td class="sorting_1 dtr-control"><img src="<?php echo STUDENT_IMAGE.$row['image']?>" alt="student"></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['name']?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['fName']?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['phoneNumber']?></td>
