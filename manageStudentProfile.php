@@ -298,28 +298,6 @@ if(isset($_POST['submit'])){
                         ?>
                         </select>
                     </div>
-                    <!-- <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <label>Manual Payment Status *</label>
-                        <select class="select2" name="paymentStatus" required>
-                            <option>Please Select Manual Payment Status *</option>
-                            <?php
-                            // $data=[
-                            //     'name'=>[
-                            //         'VALID',
-                            //         'FAILED',
-                            //     ]
-                            // ];
-                            // $count=count($data['name']);
-                            // for($i=0;$i<$count;$i++){
-                            //     if($data['name'][$i]==$paymentStatus){
-                            //         echo "<option selected='selected' value=".$data['name'][$i].">".$data['name'][$i]."</option>";
-                            //     }else{
-                            //         echo "<option value=".$data['name'][$i].">".$data['name'][$i]."</option>";
-                            //     }                                                        
-                            // }
-                            ?>
-                        </select>
-                    </div> -->
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Exam Roll</label>
                         <input class="form-control" placeholder="Last Exam roll" autocomplete="off" name="examRoll"

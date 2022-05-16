@@ -1,11 +1,18 @@
-<?php include("header.php")?>
+<?php include("header.php");
+$dept_id="";
+$display_none='d-none';
+if(isset($_GET['dept_id']) || isset($_GET['date'])) {
+    $display_none="";
+	$dept_id=get_safe_value($_GET['dept_id']);
+}
+?>
 <div class="dashboard-content-one">
     <!-- Breadcubs Area Start Here -->
     <div class="breadcrumbs-area">
         <h3>Student Attendence</h3>
         <ul>
             <li>
-                <a href="index-2.html">Home</a>
+                <a href="index.php">Home</a>
             </li>
             <li>Attendence</li>
         </ul>
@@ -37,13 +44,18 @@
                         <div class="row">
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Select Class</label>
-                                <select class="select2">
-                                    <option value="">Select Class</option>
-                                    <option value="1">Nursery</option>
-                                    <option value="2">Play</option>
-                                    <option value="3">One</option>
-                                    <option value="4">Two</option>
-                                    <option value="5">Three</option>
+                                <select class="form-control select2" name="dept_id">
+                                    <option readonly>Select Depertment</option>
+                                    <?php
+                                    $res=mysqli_query($con,"SELECT * FROM `depts` where status='1'");
+                                    while($row=mysqli_fetch_assoc($res)){
+                                        if($row['id']==$dept_id){
+                                            echo "<option selected='selected' value=".$row['id'].">".$row['name']."</option>";
+                                        }else{
+                                            echo "<option value=".$row['id'].">".$row['name']."</option>";
+                                        }                                                        
+                                    }
+                                    ?>
                                 </select>
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
@@ -97,7 +109,7 @@
         <!-- Student Attendence Search Area End Here -->
 
         <!-- Student Attendence Area Start Here -->
-        <div class="col-12">
+        <div class="col-12 <?php echo $display_none?>">
             <div class="card">
                 <div class="card-body">
                     <div class="heading-layout1">
@@ -122,49 +134,27 @@
                             <thead>
                                 <tr>
                                     <th class="text-left">Students</th>
-                                    <?php $dates=getBetweenDates('2022-1-1','2022-1-31');
+                                    <?php
+                                    $d=cal_days_in_month(CAL_GREGORIAN,2,2020);
+                                    $dates=getBetweenDates('2020-2-1','2020-2-'.$d);
                                     for ($i=0; $i < count($dates); $i++) {?>
                                     <th><?php echo $dates[$i]?></th>
                                     <?php }?>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php for ($i=0; $i < 5; $i++) { ?>
                                 <tr>
                                     <td class="text-left">Dhrubo Raj Roy</td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td><i class="fas fa-times text-danger"></i></td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td>-</td>
-                                    <td><i class="fas fa-times text-danger"></i></td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td><i class="fas fa-times text-danger"></i></td>
-                                    <td>-</td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td><i class="fas fa-times text-danger"></i></td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td>-</td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td><i class="fas fa-times text-danger"></i></td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td>-</td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td>-</td>
-                                </tr>
+
+                                    <?php 
+                                    for ($i=0; $i < count($dates); $i++) {
+                                    $sql="SELECT meal_value FROM `meal_table` WHERE `meal_table`.`roll`=200130 and `meal_table`.`date`='2022-05-".$dates[$i]."'";
+                                    $res=mysqli_query($con,$sql);
+                                    ;
+                                    ?>
+                                <tr><?php $row=mysqli_fetch_assoc($res); print_r($row);?> </tr>
                                 <?php }?>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
