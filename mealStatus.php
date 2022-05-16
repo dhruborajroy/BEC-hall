@@ -13,7 +13,7 @@
     <!-- Breadcubs Area End Here -->
     <div class="row">
         <!-- Student Attendence Search Area Start Here -->
-        <!-- <div class="col-12">
+        <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <div class="heading-layout1">
@@ -93,8 +93,9 @@
                     </form>
                 </div>
             </div>
-        </div> -->
+        </div>
         <!-- Student Attendence Search Area End Here -->
+
         <!-- Student Attendence Area Start Here -->
         <div class="col-12">
             <div class="card">
@@ -121,37 +122,10 @@
                             <thead>
                                 <tr>
                                     <th class="text-left">Students</th>
-                                    <th>1</th>
-                                    <th>2</th>
-                                    <th>3</th>
-                                    <th>4</th>
-                                    <th>5</th>
-                                    <th>6</th>
-                                    <th>7</th>
-                                    <th>8</th>
-                                    <th>9</th>
-                                    <th>10</th>
-                                    <th>11</th>
-                                    <th>12</th>
-                                    <th>13</th>
-                                    <th>14</th>
-                                    <th>15</th>
-                                    <th>16</th>
-                                    <th>17</th>
-                                    <th>18</th>
-                                    <th>19</th>
-                                    <th>20</th>
-                                    <th>21</th>
-                                    <th>22</th>
-                                    <th>23</th>
-                                    <th>24</th>
-                                    <th>25</th>
-                                    <th>26</th>
-                                    <th>27</th>
-                                    <th>28</th>
-                                    <th>29</th>
-                                    <th>30</th>
-                                    <th>31</th>
+                                    <?php $dates=getBetweenDates('2022-1-1','2022-1-31');
+                                    for ($i=0; $i < count($dates); $i++) {?>
+                                    <th><?php echo $dates[$i]?></th>
+                                    <?php }?>
                                 </tr>
                             </thead>
                             <tbody>

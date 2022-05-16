@@ -19,10 +19,10 @@ function get_safe_value($str){
 
 function redirect($link){
 	?>
-	<script>
-	window.location.href='<?php echo $link?>';
-	</script>
-	<?php
+<script>
+window.location.href = '<?php echo $link?>';
+</script>
+<?php
 	die();
 }
 
@@ -93,45 +93,21 @@ function vailidatePayment($tran_id){
 function isAdmin(){
 	if(!isset($_SESSION['ADMIN_LOGIN'])){
 	?>
-		<script>
-		window.location.href='./login.php';
-		</script>
-		<?php
+<script>
+window.location.href = './login.php';
+</script>
+<?php
 	}
 }
 function isUSER(){
 	if(!isset($_SESSION['USER_LOGIN'])){
 	?>
-		<script>
-		window.location.href='./login.php';
-		</script>
-		<?php
+<script>
+window.location.href = './login.php';
+</script>
+<?php
 	}
 }
-function getTotalApplication(){
-	global $con;
-	$sql="SELECT count(DISTINCT id) as number FROM applicants ";
-	$res=mysqli_query($con,$sql);
-	while($row=mysqli_fetch_assoc($res)){
-	  return $row['number'];
-	}
-} 
-function getPaidAmount($id){
-	global $con;
-	$sql="SELECT sum(amount) as number FROM payment where user_id='$id' ";
-	$res=mysqli_query($con,$sql);
-	while($row=mysqli_fetch_assoc($res)){
-	  return $row['number'];
-	}
-} 
-function getApplication($id){
-	global $con;
-	$sql="SELECT count(id) as number FROM applicants where userId='$id' ";
-	$res=mysqli_query($con,$sql);
-	while($row=mysqli_fetch_assoc($res)){
-	  return $row['number'];
-	}
-} 
 function getUsers(){
 	global $con;
 	$sql="SELECT count(DISTINCT id) as number FROM users ";
@@ -163,21 +139,17 @@ function gettotalstudent(){
 	while($row=mysqli_fetch_assoc($res)){
 	  return $row['student'];
 	}
-} 
-function gettotalteacher(){
-	global $con;
-	$sql="SELECT count(DISTINCT id) as teacher FROM teachers";
-	$res=mysqli_query($con,$sql);
-	while($row=mysqli_fetch_assoc($res)){
-	  return $row['teacher'];
-	}
 }
-function getmycourse($id){
-	global $con;
-	$sql="SELECT count(DISTINCT id) as course FROM enorll where user_id='$id'";
-	$res=mysqli_query($con,$sql);
-	while($row=mysqli_fetch_assoc($res)){
-	  return $row['course'];
+
+function getBetweenDates($startDate, $endDate){
+	$rangArray = [];
+	$startDate = strtotime($startDate);
+	$endDate = strtotime($endDate);
+	for ($currentDate = $startDate; $currentDate <= $endDate; $currentDate += (86400)) {
+											
+		$date = date('d', $currentDate);
+		$rangArray[] = $date;
 	}
-} 
+	return $rangArray;
+}
 ?>

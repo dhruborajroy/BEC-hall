@@ -59,6 +59,7 @@ $res=mysqli_query($con,$sql);
                             <th>ID</th>
                             <th>Image</th>
                             <th>Name</th>
+                            <th>Student ID</th>
                             <th>Father's Name</th>
                             <th>Number</th>
                             <th>Email</th>
@@ -66,14 +67,16 @@ $res=mysqli_query($con,$sql);
                         </tr>
                     </thead>
                     <tbody id="myTable">
-                    <?php if(mysqli_num_rows($res)>0){
+                        <?php if(mysqli_num_rows($res)>0){
                         $i=1;
                         while($row=mysqli_fetch_assoc($res)){
                         ?>
                         <tr role="row" class="odd">
                             <td class="sorting_1 dtr-control"><?php echo $i?></td>
-                            <td class="sorting_1 dtr-control"><img src="<?php echo STUDENT_IMAGE.$row['image']?>" alt="student"></td>
+                            <td class="sorting_1 dtr-control"><img src="<?php echo STUDENT_IMAGE.$row['image']?>"
+                                    alt="student"></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['name']?></td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['roll']?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['fName']?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['phoneNumber']?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['email']?></td>

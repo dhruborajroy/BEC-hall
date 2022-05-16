@@ -23,7 +23,7 @@ if(isset($_POST['submit']) ){
     $total_amount=$_POST['total_amount'];
     $fee_amount=$_POST['fees_amount'];
     $time=time();
-    $sql="INSERT INTO `payments` ( `user_id`,`total_amount` `updated_at`, `created_at`, `status`) VALUES ( '$user_id', '$total_amount', '$time', '$time', '1')";
+    $sql="INSERT INTO `payments` ( `user_id`,`total_amount`, `updated_at`, `created_at`, `status`) VALUES ( '$user_id', '$total_amount', '$time', '$time', '1')";
     mysqli_query($con,$sql);
     $payment_id=mysqli_insert_id($con);
     for($i=0;$i<=count($_POST['month_amount'])-1;$i++){
@@ -234,7 +234,7 @@ function getMonthlyData(id) {
 }
 // Adding more Monthly data
 function add_more() {
-    var option_value='<?php
+    var option_value = '<?php
                         $month_id=0;
                         $res=mysqli_query($con,"SELECT * FROM `month` where status='1'");
                         while($row=mysqli_fetch_assoc($res)){
@@ -253,7 +253,9 @@ function add_more() {
     jQuery("#wrap").append('<div class="col-xl-12 col-lg-12 col-12 form-group row" id="box_loop_' + box_count +
         '"><div class="col-xl-6 col-lg-6 col-12 form-group"><label>Month *</label><select required  name="month_id[]" id="select_box_' +
         box_count + '" onchange="getMonthlyData(' + box_count +
-        ')" class="form-control disable_class"><option value="" selected readonly>Please Select Month *</option>'+option_value+'</select></div><div class="col-xl-4 col-lg-4 col-12 form-group"><label>Due amount</label><input type="number"  name="month_amount[]" id="number_' +
+        ')" class="form-control disable_class"><option value="" selected readonly>Please Select Month *</option>' +
+        option_value +
+        '</select></div><div class="col-xl-4 col-lg-4 col-12 form-group"><label>Due amount</label><input type="number"  name="month_amount[]" id="number_' +
         box_count +
         '" value="0" class="form-control amount" readonly></div><div class="col-xl-2 col-lg-2 col-2 form-group"><input style="margin-top: 20px;" type="button" name="submit" id="submit" value="Remove" class="btn-fill-lmd text-light radius-4 bg-gradient-gplus"  onclick=remove_more("' +
         box_count + '")></div></div>'
@@ -330,5 +332,4 @@ function get_total() {
 function reload() {
     location.reload();
 }
-
 </script>

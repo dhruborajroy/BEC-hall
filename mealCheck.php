@@ -1,4 +1,27 @@
-<?php include("header.php")?>
+<?php include("header.php");
+
+
+$roll="";
+$date="";
+if(isset($_POST['submit']) ){
+    $date=$_POST['date'];
+    $time=time();
+    // echo count($_POST['roll']);
+    for($i=0;$i<=count($_POST['roll'])-1;$i++){
+        for($i=0;$i<=count($_POST['meal_value'])-1;$i++){
+            $meal_value= $_POST['meal_value'];
+            $roll= $_POST['roll'];
+            $swl="INSERT INTO `meal_table` ( `roll`, `meal_value`, `date`, `added_on`,`updated_on`, `status`) VALUES ( '$roll[$i]', '$meal_value[$i]', '$date', '$time','$time', '1')";
+            mysqli_query($con,$swl);
+        }
+    }
+    redirect('mealStatus.php');
+}
+
+
+$sql="select * from users order by id desc";
+$res=mysqli_query($con,$sql);
+?>
 <div class="dashboard-content-one">
     <!-- Breadcubs Area Start Here -->
     <div class="breadcrumbs-area">
@@ -29,15 +52,15 @@
                     </div>
                 </div>
             </div>
-            <form class="mg-b-20">
+            <form class="mg-b-20" method="post">
                 <div class="row gutters-8">
                     <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
                         <input type="text" onkeyup="myFunction()" placeholder="Search by Roll ..." class="form-control"
                             id="myInput">
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <input type="text" placeholder="dd/mm/yy" class="form-control air-datepicker"
-                            data-position="bottom right">
+                        <input name="date" type="date" placeholder="dd/mm/yy" class="form-control air-datepicker"
+                            data-position="bottom right" required>
                     </div>
                     <!-- <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
                         <input type="text" placeholder="Search by Name ..." class="form-control">
@@ -49,105 +72,91 @@
                         <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>
                     </div>
                 </div>
-            </form>
-            <div class="table-responsive">
-                <table class="table display data-table text-nowrap">
-                    <thead>
-                        <tr>
-                            <th>Roll</th>
-                            <th>Name</th>
-                            <th>Batch</th>
-                            <th>Dept.</th>
-                            <!-- <th>
+                <div class="table-responsive">
+                    <table class="table display data-table text-nowrap">
+                        <thead>
+                            <tr>
+                                <th>Roll</th>
+                                <th>Name</th>
+                                <th>Batch</th>
+                                <th>Dept.</th>
+                                <th><input type="number" id="number_value" min="0" onkeyup="checkAll()"></th>
+                                <!-- <th>
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input checkAll">
                                     <label class="form-check-label">status</label>
                                 </div>
                             </th> -->
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="myTable">
-                        <?php for ($i=0; $i < 10; $i++) { ?>
-                        <tr>
-                            <td>200130</td>
-                            <td>Dhrubo Raj Roy</td>
-                            <td>04 batch</td>
-                            <td>CE</td>
-                            <!-- <div class="form-check">
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="myTable">
+                            <?php if(mysqli_num_rows($res)>0){
+                            $i=1;
+                            while($row=mysqli_fetch_assoc($res)){
+                            ?>
+                            <tr>
+                                <td><?php echo $row['roll']?></td>
+                                <input type="hidden" name="roll[]" value="<?php echo $row['roll']?>">
+                                <td><?php echo $row['name']?></td>
+                                <td><?php echo $row['batch']?> batch</td>
+                                <td>CE</td>
+                                <!-- <div class="form-check">
                                     <input type="checkbox" class="form-check-input">
                                 </div> -->
-                            <td><input type="number" value=""></td>
-                        </tr>
-                        <?php }?>
-                        <tr>
-                            <td>200101</td>
-                            <td>Nazmul</td>
-                            <td>04 batch</td>
-                            <td>CE</td>
-                            <!-- <td>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label class="form-check-label">On</label>
-                                </div>
-                            </td> -->
-                            <td><input type="number"></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="row">
-                    <div class="col-xl-5 col-lg-5 col-5 form-group"></div>
-                    <div class="col-xl-2 col-lg-2 col-12 form-group">
-                        <button type="button" class="modal-trigger" data-toggle="modal" data-target="#standard-modal">
-                            Save
-                        </button>
-                    </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="standard-modal" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Are You sure?</h5>
-                                    <!-- <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button> -->
-                                </div>
-                                <div class="modal-body">
-                                    Do you want to pay Dhrubo Raj roy & amount 2500$ for the month January?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="footer-btn bg-dark-low"
-                                        data-dismiss="modal">Cancel</button>
-                                    <a href="mealCheck.php"><button type="button" class="footer-btn bg-linkedin">Save
-                                            & Print</button></a>
+                                <td><input type="number" name="meal_value[]" class="number" required></td>
+                            </tr>
+                            <?php 
+                           $i++;
+                           } } else { ?>
+                            <tr>
+                                <td colspan="5">No data found</td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-xl-5 col-lg-5 col-5 form-group"></div>
+                        <div class="col-xl-2 col-lg-2 col-12 form-group">
+                            <button type="button" class="modal-trigger" data-toggle="modal"
+                                data-target="#standard-modal">
+                                Save
+                            </button>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="standard-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Are You sure?</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        Do you want to pay Dhrubo Raj roy & amount 2500$ for the month January?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="footer-btn bg-dark-low"
+                                            data-dismiss="modal">Cancel</button>
+                                        <button type="submit" name="submit" class="footer-btn bg-linkedin">Save
+                                            & Print</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-5 col-lg-5 col-5 form-group"></div>
-                </div>
-            </div>
+                        <div class="col-xl-5 col-lg-5 col-5 form-group"></div>
+            </form>
         </div>
     </div>
-    <!-- Student Table Area End Here -->
-    <?php include("footer.php")?>
+</div>
+</div>
+<!-- Student Table Area End Here -->
+<?php include("footer.php")?>
 
-    <script>
-    function myFunction() {
-        var input, filter, ul, li, a, i, txtValue;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        ul = document.getElementById("myUL");
-        li = ul.getElementsByTagName("li");
-        for (i = 0; i < li.length; i++) {
-            a = li[i].getElementsByTagName("a")[0];
-            txtValue = a.textContent || a.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                li[i].style.display = "";
-            } else {
-                li[i].style.display = "none";
-            }
-        }
+<script>
+function checkAll() {
+    var number = document.getElementsByClassName("number");
+    var number_value = document.getElementById("number_value").value;
+    for (let i = 0; i < number.length; i++) {
+        number[i].value = number_value;
     }
-    </script>
+}
+</script>

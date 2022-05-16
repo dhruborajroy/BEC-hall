@@ -29,6 +29,7 @@ if(isset($_GET['id']) && $_GET['id']!=""){
 	if(mysqli_num_rows($res)>0){
         $row=mysqli_fetch_assoc($res);
         $name=$row['name'];
+        $roll=$row['roll'];
         $fname=$row['fName'];
         $fOccupation=$row['fOccupation'];
         $mname=$row['mName'];
@@ -57,6 +58,7 @@ if(isset($_GET['id']) && $_GET['id']!=""){
 }
 if(isset($_POST['submit'])){
 	$name=get_safe_value($_POST['name']);
+	$roll=get_safe_value($_POST['roll']);
 	$fName=get_safe_value($_POST['fName']);
 	$fOccupation=get_safe_value($_POST['fOccupation']);
 	$mName=get_safe_value($_POST['mName']);
@@ -79,8 +81,8 @@ if(isset($_POST['submit'])){
    if($id==''){
         $image=rand(111111111,999999999).'_'.$_FILES['image']['name'];
         move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
-        $sql="INSERT INTO `users` (`name`, `fName`, `fOccupation`, `mName`, `mOccupation`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`,`ffQuata`, `bloodGroup`,  `examRoll`, `merit`, `legalGuardianName`, `legalGuardianRelation`, `image`,`email`,`dept_id`, `status`)
-                                VALUES ( '$name', '$fName', '$fOccupation', '$mName', '$mOccupation', '$phoneNumber','$presentAddress','$permanentAddress','$dob','$gender','$religion','$birthId','$ffQuata','$bloodGroup','$examRoll','$merit', '$legalGuardianName','$legalGuardianRelation','$image','$email','$dept_id', 1)";
+        $sql="INSERT INTO `users` (`name`, `roll`,`fName`, `fOccupation`, `mName`, `mOccupation`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`,`ffQuata`, `bloodGroup`,  `examRoll`, `merit`, `legalGuardianName`, `legalGuardianRelation`, `image`,`email`,`dept_id`, `status`)
+                                VALUES ( '$name', '$roll','$fName', '$fOccupation', '$mName', '$mOccupation', '$phoneNumber','$presentAddress','$permanentAddress','$dob','$gender','$religion','$birthId','$ffQuata','$bloodGroup','$examRoll','$merit', '$legalGuardianName','$legalGuardianRelation','$image','$email','$dept_id', 1)";
         
         mysqli_query($con,$sql);
         $_SESSION['INSERT']=1;
@@ -88,15 +90,15 @@ if(isset($_POST['submit'])){
         if($_FILES['image']['name']!=''){
             $image=rand(111111111,999999999).'_'.$_FILES['image']['name'];
             move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
-            $sql="update `users` set  `name`='$name', `fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email', `dept_id`='$dept_id'  where id='$id'";
+            $sql="update `users` set  `name`='$name',`roll`='$roll', `fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email', `dept_id`='$dept_id'  where md5(id)='$id'";
             mysqli_query($con,$sql);
         }else{
-            $sql="update `users` set  `name`='$name', `fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email' , `dept_id`='$dept_id' where id='$id'";
+            $sql="update `users` set  `name`='$name', `roll`='$roll',`fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email' , `dept_id`='$dept_id' where  md5(id)='$id'";
             mysqli_query($con,$sql);
         }
         $_SESSION['UPDATE']=1;
     }
-    // echo $sql;
+    echo $sql;
     // redirect('./users.php');
 }
 ?>
@@ -127,6 +129,11 @@ if(isset($_POST['submit'])){
                         <label>Student's Name *</label>
                         <input class="form-control" placeholder="Student's Name" name="name" id="name" type="text"
                             value="<?php echo $name?>" required>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-12 form-group">
+                        <label>Student's ID *</label>
+                        <input class="form-control" placeholder="Student's ID" name="roll" id="roll" type="number"
+                            value="<?php echo $roll?>" required>
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Father's Name *</label>
@@ -363,7 +370,8 @@ if(isset($_POST['submit'])){
 
                     </div>
                     <div class="col-12 form-group mg-t-8">
-                        <button type="submit" name="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
+                        <button type="submit" name="submit"
+                            class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
                         <!-- <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button> -->
                     </div>
                 </div>
