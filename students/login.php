@@ -9,20 +9,20 @@ if(isset($_SESSION['USER_LOGIN'])){
     redirect('index.php');
 }
 if(isset($_POST['submit'])){
-	$email=get_safe_value($_POST['email']);
+	$phoneNumber=get_safe_value($_POST['phoneNumber']);
    	$password=get_safe_value($_POST['password']);
-   	$sql="select * from admin where email='$email' and binary password='$password'";
+   	$sql="select * from users where phoneNumber='$phoneNumber' and binary password='$password'";
 	$res=mysqli_query($con,$sql);
 	if(mysqli_num_rows($res)>0){
 		$row=mysqli_fetch_assoc($res);
 		if($row['status']!=1){
-			$msg="You haven't verified your email yet. Please verify the email";
+			$msg="You haven't verified your phoneNumber yet. Please verify the phoneNumber";
 		}else{
 			$msg="You are aleady registered. Please login";
 			$_SESSION['USER_LOGIN']=true;
 			$_SESSION['USER_ID']=$row['id'];
 			$_SESSION['USER_NAME']=$row['name'];
-            sendLoginEmail($row['email']);
+            sendLoginEmail($row['phoneNumber']);
 			redirect('./index.php');
             die();
 		}		
@@ -57,7 +57,7 @@ if(isset($_POST['submit'])){
     <!-- Animate CSS -->
     <link rel="stylesheet" href="../css/animate.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <!-- Modernize js -->
     <script src="../js/modernizr-3.6.0.min.js"></script>
 </head>
@@ -79,7 +79,7 @@ if(isset($_POST['submit'])){
                     </div>
                     <div class="form-group">
                         <label>Username</label>
-                        <input type="text" placeholder="Enter usrename" class="form-control" name="email">
+                        <input type="text" placeholder="Enter usrename" class="form-control" name="phoneNumber">
                         <i class="far fa-envelope"></i>
                     </div>
                     <div class="form-group">
@@ -89,7 +89,7 @@ if(isset($_POST['submit'])){
                     </div>
                     <div class="form-group d-flex align-items-center justify-content-between">
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="remember-me" >
+                            <input type="checkbox" class="form-check-input" id="remember-me">
                             <label for="remember-me" class="form-check-label">Remember Me</label>
                         </div>
                         <a href="#" class="forgot-btn">Forgot Password?</a>

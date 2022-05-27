@@ -53,6 +53,7 @@
                             <th>Roll</th>
                             <th>Name</th>
                             <th>Batch</th>
+                            <th>Date</th>
                             <th>Dept.</th>
                             <th>
                                 <div class="form-check">
@@ -63,11 +64,11 @@
                         </tr>
                     </thead>
                     <tbody id="myTable">
-                        <?php for ($i=0; $i < 10; $i++) { ?>
                         <tr>
                             <td>200130</td>
                             <td>Dhrubo Raj Roy</td>
                             <td>04 batch</td>
+                            <td>16 May </td>
                             <td>CE</td>
                             <td>
                                 <div class="ui-btn-wrap">
@@ -82,7 +83,6 @@
                                 </div>
                             </td>
                         </tr>
-                        <?php }?>
                     </tbody>
                 </table>
             </div>

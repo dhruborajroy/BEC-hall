@@ -45,154 +45,390 @@
 <script src="../assets/js/sweetalert.min.js"></script>
 <!-- Custom Js -->
 <script src="js/main.js"></script>
+<script src="js/custom.js"></script>
 
 <script>
-toastr.options = {
-    "closeButton": true,
-    "debug": true,
-    "newestOnTop": true,
-    "progressBar": false,
-    "positionClass": "toast-top-right",
-    "preventDuplicates": true,
-    "onclick": null,
-    "showDuration": "300",
-    "hideDuration": "1000",
-    "timeOut": "5000",
-    "extendedTimeOut": "1000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
+$(document).ready(function() {
+    $('#summernote').summernote();
+});
+$(document).click(function(e) {
+    var elem = $(".header-search-input");
+    if (!elem.is(e.target) && elem.has(e.target).length === 0 && $('.header-search-input:focus').length === 0) {
+        $(".header-search-results").hide();
+    }
+});
+$('.header-search-input').on('focus', function() {
+    if ($('.header-search-results li').length > 0) {
+        $('.header-search-results').show();
+    }
+});
+$(document).on('click', 'li.user', function(e) {
+    e.preventDefault();
+    window.location.href = $(this).attr('data-url');
+});
+$(document).on('click', 'li.book', function(e) {
+    e.preventDefault();
+    window.location.href = $(this).attr('data-url');
+});
+
+function userTemplate(user) {
+    var url = '/admin/user/[userId]/edit';
+    var template = '<li class="flex-row d-flex user" data-url="' + url.replace("[userId]", user.id) + '">';
+    template += '<div class="user-meta">';
+    template += '<h4><strong>#' + user.id + '</strong> ' + user.firstName + ' ' + user.lastName + ' ';
+    if (user.role) {
+        template += '<span>(' + user.role.name + ')</span>';
+    }
+    template += '</h4>';
+    template += "<div><strong>Email:</strong> " + user.email + "</div>";
+    template += '</div>';
+    template += '</li>';
+    return template;
 }
 
-function toastrSuccess(data) {
-    toastr.success(data);
-}
+function bookTemplate(book) {
+    var url = '/admin/book/[bookId]/edit';
+    var i, lastIndex, template = '<li class="flex-row d-flex book" data-url="' + url.replace("[bookId]", book.id) +
+        '">';
+    template += '<div class="book-cover">';
+    if (book.cover) {
+        template += '<img src="' + book.cover.webPath + '" class="img-fluid">';
+    } else {
+        template += '<img src="/resources/images/comingsoon.png" class="img-fluid">';
+    }
+    template += '</div>';
+    template += '<div class="book-meta">';
+    template += '<h4>' + book.title + '';
+    if (book.publishingYear) {
+        template += ' <span>(' + book.publishingYear + ')</span>';
+    }
+    template += '</h4>';
 
-function toastrInfo(data) {
-    toastr.info(data);
-}
-
-function toastrWarning(data) {
-    toastr.warning(data);
-}
-
-function toastrError(data) {
-    toastr.error(data);
-}
-</script>
-<!-- Dynamic Custom Js -->
-<script src="js/custom.php"></script>
-
-<script>
-function vailidatePayment(val_id) {
-    var val_id = val_id;
-    // alert(val_id);
-    jQuery.ajax({
-        url: 'vailidatePayment.php',
-        type: 'post',
-        data: 'val_id=' + val_id,
-        success: function(result) {
-            if (result == 'VALID' || result == 'VALIDATED') {
-                swal("Success!", "Your payment is valid!", "success");
-            } else if (result == 'INVALID_TRANSACTION') {
-                swal("Failure!", "Your payment is Invalid!", "warning");
-            } else {
-                alert(result);
+    if (book.publisher) {
+        template += "<div><strong>Publisher:</strong> " + book.publisher.name + "</div>";
+    }
+    if (book.ISBN13) {
+        template += "<div><strong>ISBN13:</strong> " + book.ISBN13 + "</div>";
+    } else if (book.ISBN10) {
+        template += "<div><strong>ISBN10:</strong> " + book.ISBN10 + "</div>";
+    }
+    if (book.genres != null && book.genres.length > 0) {
+        template += "<div><strong>Genres:</strong> ";
+        lastIndex = book.genres.length - 1;
+        for (i = 0; i < book.genres.length; i++) {
+            template += book.genres[i].name;
+            if (lastIndex != i) {
+                template += ", ";
             }
         }
-    });
+        template += "</div>";
+    }
+    if (book.authors != null && book.authors.length > 0) {
+        template += "<div><strong>Authors:</strong> ";
+        lastIndex = book.authors.length - 1;
+        for (i = 0; i < book.authors.length; i++) {
+            if (book.authors[i].firstName) {
+                var text = book.authors[i].firstName + ' ' + book.authors[i].lastName;
+            } else {
+                text = book.authors[i].lastName;
+            }
+            template += text;
+            if (lastIndex != i) {
+                template += ", ";
+            }
+        }
+        template += "</div>";
+    }
+    template += '</div>';
+    template += '</li>';
+    return template;
 }
-$().ready(function() {
-    // validate signup form on keyup and submit
-    $("#studentForm").validate({
-        rules: {
-            name: {
-                required: true,
-                minlength: 2
+</script>
+
+<script>
+$(document).ready(function() {
+
+    var bookGoogleSearchByIsbnPublicUrl = '/book/google-search-by-isbn';
+    var bookByGoogleDataGetUrl = '/google-book/[googleBookId]/get';
+    $(document).on('click', '.select-book-by-isbn', function(e) {
+        e.preventDefault();
+        var googleBookId = $(this).attr('data-id');
+        $.ajax({
+            dataType: 'json',
+            method: 'POST',
+            url: bookByGoogleDataGetUrl.replace('[googleBookId]', googleBookId),
+            beforeSend: function(data) {
+                app.card.loading.start('.result-books-by-isbn');
             },
-            lastname: "required",
-            username: {
-                required: true,
-                minlength: 2
+            success: function(data) {
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                } else {
+                    if (data.error) {
+                        app.notification('error', data.error);
+                    } else {
+                        app.notification('success', data.success);
+                        app.notification('success',
+                            'Please don\'t forget to save the book');
+
+                        $('#book-search-by-isbn-modal').modal('hide');
+                        if (data.book.title) {
+                            $('.book-field-title').val(data.book.title);
+                        }
+                        if (data.book.publishingYear) {
+                            $('.book-field-publishing-year').val(data.book.publishingYear);
+                        }
+                        if (data.book.ISBN10) {
+                            $('.book-field-isbn10').val(data.book.ISBN10);
+                        }
+                        if (data.book.ISBN13) {
+                            $('.book-field-isbn13').val(data.book.ISBN13);
+                        }
+                        if (data.book.pages) {
+                            $('.book-field-pages').val(data.book.pages);
+                        }
+                        if (data.book.description) {
+                            $('#content-box').summernote('code', data.book.description);
+                        }
+                        if (data.book.language) {
+                            $('.book-field-lang').val(data.book.language);
+                        }
+                        if (data.book.publisher) {
+                            var publisher = new Option(data.book.publisher.name, data.book
+                                .publisher.id, true, true);
+                            $('#publisherId').val(null).append(publisher).trigger('change');
+                        }
+                        if (data.book.authors) {
+                            $('#authors').val(null);
+                            for (var i = 0; i < data.book.authors.length; i++) {
+                                var item = data.book.authors[i];
+                                var insertData = {
+                                    id: item.id,
+                                    text: item.lastName
+                                };
+                                var author = new Option(insertData.text, insertData.id,
+                                    false, true);
+                                $('#authors').append(author).trigger('change');
+                            }
+                        }
+                        if (data.book.coverId && data.cover) {
+                            $('.coverId').val(data.book.coverId);
+                            var coverDropzone = $('.cover-drop-zone');
+                            if ($(coverDropzone).hasClass('cover-exist')) {
+                                $(coverDropzone).find('img').remove();
+                                $(coverDropzone).append('<img src="' + data.cover.webPath +
+                                    '" class="img-fluid">');
+                            } else {
+                                $(coverDropzone).addClass('cover-exist').find(
+                                    '.remove-book-cover').removeClass('d-none');
+                                $(coverDropzone).append('<img src="' + data.cover.webPath +
+                                    '" class="img-fluid">');
+                            }
+                        }
+                    }
+                }
             },
-            password: {
-                required: true,
-                minlength: 5
+            error: function(jqXHR, exception) {
+                app.notification('error', app.getErrorMessage(jqXHR, exception));
             },
-            confirm_password: {
-                required: true,
-                minlength: 5,
-                equalTo: "#password"
-            },
-            file_ip_1: {
-                required: true,
-            },
-            email: {
-                required: true,
-                email: true
-            },
-            topic: {
-                required: "#newsletter:checked",
-                minlength: 2
-            },
-            agree: "required"
-        },
-        messages: {
-            name: "Please enter your firstname",
-            lastname: "Please enter your lastname",
-            username: {
-                required: "Please enter a username",
-                minlength: "Your username must consist of at least 2 characters"
-            },
-            password: {
-                required: "Please provide a password",
-                minlength: "Your password must be at least 5 characters long"
-            },
-            confirm_password: {
-                required: "Please provide a password",
-                minlength: "Your password must be at least 5 characters long",
-                equalTo: "Please enter the same password as above"
-            },
-            email: "Please enter a valid email address",
-            agree: "Please accept our policy",
-            topic: "Please select at least 2 topics"
+            complete: function(data) {
+                app.card.loading.finish('.result-books-by-isbn');
+            }
+        });
+    });
+    $('.search-by-isbn').on('click', function(e) {
+        e.preventDefault();
+        var container = $('#result-books-by-isbn');
+        if ($('.isbn-code-13').val()) {
+            $.ajax({
+                dataType: 'json',
+                method: 'POST',
+                data: 'searchText=' + $('.isbn-code-13').val(),
+                url: bookGoogleSearchByIsbnPublicUrl,
+                beforeSend: function(data) {
+                    $('#book-search-by-isbn-modal').modal('show');
+                    app.card.loading.start('.result-books-by-isbn');
+                },
+                success: function(data) {
+                    if (data.redirect) {
+                        window.location.href = data.redirect;
+                    } else {
+                        if (data.error) {
+                            app.notification('error', data.error);
+                        } else {
+                            var books = $.parseJSON(data.books);
+                            $(container).mCustomScrollbar('destroy');
+                            $(container).html('');
+                            if (books.items) {
+                                for (var i = 0; i < books.items.length; i++) {
+                                    var item = books.items[i];
+                                    $('#result-books-by-isbn').append(formatBook(item));
+                                }
+                            } else {
+                                app.notification('information',
+                                    'Nothing found (Make sure Google API setting is correct)'
+                                );
+                                $('#book-search-by-isbn-modal').modal('hide');
+                            }
+                            $(container).mCustomScrollbar({
+                                setHeight: '100%',
+                                axis: "y",
+                                autoHideScrollbar: true,
+                                scrollInertia: 200,
+                                advanced: {
+                                    autoScrollOnFocus: false
+                                }
+                            });
+                        }
+                    }
+                },
+                error: function(jqXHR, exception) {
+                    app.notification('error', app.getErrorMessage(jqXHR, exception));
+                },
+                complete: function(data) {
+                    app.card.loading.finish('.result-books-by-isbn');
+                }
+            });
+        } else {
+            app.notification('information', 'ISBN is required.');
         }
     });
-});
-</script>
-<script type="text/javascript" src="./js/jautocalc.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-    function autoCalcSetup() {
-        $('form[name=cart]').jAutoCalc('destroy');
-        $('form[name=cart] tr[name=line_items]').jAutoCalc({
-            keyEventsFire: true,
-            decimalPlaces: 2,
-            emptyAsZero: true
-        });
-        $('form[name=cart]').jAutoCalc({
-            decimalPlaces: 2
-        });
-    }
-    autoCalcSetup();
-    $('button[name=remove]').click(function(e) {
-        e.preventDefault();
-        var form = $(this).parents('form')
-        $(this).parents('tr').remove();
-        autoCalcSetup();
+
+    var authorSearchUrl = 'ajax/request.php';
+    $("#authors").select2({
+        ajax: {
+            url: authorSearchUrl,
+            dataType: 'json',
+            type: 'POST',
+            data: function(params) {
+                return {
+                    searchText: params.term
+                };
+            },
+            processResults: function(data, params) {
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                } else {
+                    if (data.error) {
+                        app.notification('error', data.error);
+                    } else {
+                        return {
+                            results: $.map(data, function(item) {
+                                if (item.firstName && item.lastName) {
+                                    var text = item.firstName + ' ' + item.lastName;
+                                } else if (item.firstName) {
+                                    text = item.firstName;
+                                } else if (item.lastName) {
+                                    text = item.lastName;
+                                }
+                                return {
+                                    text: text,
+                                    id: item.id,
+                                    term: params.term
+                                }
+                            })
+                        };
+                    }
+                }
+            },
+            cache: false
+        },
+        templateResult: function(item) {
+            if (item.loading) {
+                return item.text;
+            }
+            return app.markMatch(item.text, item.term);
+        },
+        minimumInputLength: 2
+    });
+    // Publisher Ajax starts here
+    var publisherSearchUrl = 'ajax/request.php';
+    $('#publisherId').select2({
+        ajax: {
+            url: function() {
+                return publisherSearchUrl;
+            },
+            dataType: 'json',
+            type: 'POST',
+            data: function(params) {
+                return {
+                    searchText: params.term
+                };
+            },
+            processResults: function(data, params) {
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                } else {
+                    if (data.error) {
+                        app.notification('error', data.error);
+                    } else {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: item.name,
+                                    id: item.id,
+                                    term: params.term
+                                }
+                            })
+                        };
+                    }
+                }
+            },
+            cache: true
+        },
+        templateResult: function(item) {
+            if (item.loading) {
+                return item.text;
+            }
+            return app.markMatch(item.text, item.term);
+        },
+        minimumInputLength: 2
     });
 
-    $('button[name=add]').click(function(e) {
-        e.preventDefault();
-        var $table = $(this).parents('table');
-        var $top = $table.find('tr[name=line_items]').first();
-        var $new = $top.clone(true);
-        $new.jAutoCalc('destroy');
-        $new.insertBefore($top);
-        $new.find('input[name=amount]').val('');
-        $new.find('input[name=fee_price]').val('');
-        autoCalcSetup();
+    // Publisher Ajax ends here
+
+
+    // required part 
+    $('.validate').validate({
+        errorPlacement: function(error, element) {
+            if (element != undefined) {
+                $(element).tooltipster('update', $(error).text());
+                $(element).tooltipster('show');
+            }
+        },
+        success: function(label, element) {
+            $(element).tooltipster('hide');
+        },
+        messages: {
+            url: {
+                remote: jQuery.validator.format(
+                    "<strong>{0}</strong> is already exist. Please use another URL.")
+            }
+        },
+        rules: {
+            title: {
+                required: true
+            },
+            pages: {
+                number: true
+            },
+            price: {
+                number: true
+            },
+            publishingYear: {
+                number: true
+            },
+            ISBN10: {
+                digits: true,
+                maxlength: 10,
+                minlength: 10
+            },
+            ISBN13: {
+                digits: true,
+                maxlength: 13,
+                minlength: 13
+            }
+        }
     });
 
 });

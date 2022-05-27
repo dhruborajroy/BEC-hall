@@ -45,6 +45,11 @@
     <link rel="stylesheet" href="css/invoice.css">
     <!-- Modernize js -->
     <script src="js/modernizr-3.6.0.min.js"></script>
+    <!-- editor -->
+
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 </head>
 
 <body>
@@ -188,62 +193,46 @@
                 <div class="sidebar-menu-content">
                     <ul class="nav nav-sidebar-menu sidebar-toggle-view">
                         <li class="nav-item">
-                            <a href="index.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
+                            <a href="index.php" class="nav-link <?php // echo  $index_active?>"><i
+                                    class="flaticon-dashboard"></i><span>Dashboard</span></a>
+                        </li>
+                        <li class="nav-item sidebar-nav-item">
+                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Books</span></a>
+                            <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
+                                <li class="nav-item">
+                                    <a href="books.php"
+                                        class="nav-link <?php // echo  $application_sub_group_active?>"><i
+                                            class="fas fa-angle-right"></i>All
+                                        Books</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="manage_books.php"
+                                        class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
+                                            class="fas fa-angle-right"></i>Add new Book</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="book_issues.php" class="nav-link <?php // echo  $index_active?>"><i
+                                    class="flaticon-dashboard"></i><span>Issued Books</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="requested_books.php" class="nav-link <?php // echo  $index_active?>"><i
+                                    class="flaticon-dashboard"></i><span>Requested Books</span></a>
                         </li>
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Users</span></a>
                             <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
                                 <li class="nav-item">
-                                    <a href="users.php" class="nav-link <?php // echo  $application_sub_group_active?>"><i class="fas fa-angle-right"></i>All
-                                    Users</a>
+                                    <a href="users.php"
+                                        class="nav-link <?php // echo  $application_sub_group_active?>"><i
+                                            class="fas fa-angle-right"></i>All
+                                        Users</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="manageStudentProfile.php" class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
+                                    <a href="manageStudentProfile.php"
+                                        class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
                                             class="fas fa-angle-right"></i>Add new Application</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="makePayment.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Manage Payment</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="mealCheck.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal Check</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="mealStatus.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal Status</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="mealOnOffRequests.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal On Off Requests</span></a>
-                        </li>
-                        <!-- <li class="nav-item">
-                            <a href="contigency.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Contegency</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="electricityBill.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Electricity Bill</span></a>
-                        </li> -->
-                        <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Fees</span></a>
-                            <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
-                                <li class="nav-item">
-                                    <a href="fees.php" class="nav-link <?php // echo  $application_sub_group_active?>"><i class="fas fa-angle-right"></i>All
-                                    Fees</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="manageFees.php" class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
-                                            class="fas fa-angle-right"></i>Add new Fees</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Departments</span></a>
-                            <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
-                                <li class="nav-item">
-                                    <a href="depts.php" class="nav-link <?php // echo  $application_sub_group_active?>"><i class="fas fa-angle-right"></i>All
-                                    Departments</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="manageDepts.php" class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
-                                            class="fas fa-angle-right"></i>Add new Department</a>
                                 </li>
                             </ul>
                         </li>
